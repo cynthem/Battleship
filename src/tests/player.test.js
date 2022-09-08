@@ -12,7 +12,13 @@ describe('Player function', () => {
         expect(newPlayer.gameboard.board[99].isShot).toEqual(true);
     });
 
-    it('returns "miss" when the shot misses', () => {
-        expect(newPlayer.takeHit(99)).toEqual('miss');
+    it('returns an isShot status with the index number', () => {
+        const testHit = newPlayer.takeHit(42);
+        expect(testHit.isShot).toEqual(42);
+    });
+
+    it('returns an isShip status of false when there is no ship', () => {
+        const testHit = newPlayer.takeHit(99);
+        expect(testHit.isShip).toEqual(false);
     });
 });
