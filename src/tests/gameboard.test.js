@@ -1,10 +1,10 @@
-const gameboard = require('../factories/gameboard');
+const Gameboard = require('../factories/gameboard');
 
 describe('Gameboard functions', () =>{
     let newBoard;
 
     beforeEach(() => {
-        newBoard = new gameboard();
+        newBoard = new Gameboard();
     });
 
     it('initializes a gameboard with 100 cells', () => {

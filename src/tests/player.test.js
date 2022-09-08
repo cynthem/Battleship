@@ -1,10 +1,10 @@
-const player = require('../factories/player');
+const Player = require('../factories/player');
 
 describe('Player function', () => {
     let newPlayer;
 
     beforeEach(() => {
-        newPlayer = new player('test');
+        newPlayer = new Player('test');
     });
 
     it('receives and records a fired shot', () => {
