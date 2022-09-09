@@ -19,7 +19,7 @@
         <div class="main">
 
             <div class="left-side">
-                <h2 class="invisible">Player name</h2>
+                <h2 class="player-name invisible">Player</h2>
                 <div class="left-board">
                     <button class="player-0"></button>
                     <button class="player-1" id="player-ship"></button>
@@ -125,7 +125,7 @@
             </div>
 
             <div class="right-side">
-                <h2 class="invisible">Computer</h2>
+                <h2 class="computer-name invisible">Computer</h2>
                 <div class="right-board">
                     <button class="computer-0"></button>
                     <button class="computer-1"></button>
@@ -233,18 +233,24 @@
         </div>
 
         <div class="footer">
+
             <div class="welcome">
                 <p class="welcome-msg">Enter your name to begin a new game:</p>
-                <div class="welcome-name">
+                <form class="welcome-name">
                     <input class="welcome-input" type="text" maxlength="15" required value>
-                    <button class="welcome-btn">GO</button>
-                </div>
+                    <button type="submit" class="welcome-btn">GO</button>
+                </form>
             </div>
-            <div class="gameplay hide"></div>
+
+            <div class="gameplay hide">
+                <p class="gameplay-text">Make your move...</p>
+            </div>
+
             <div class="game-over hide">
                 <p class="goodbye-msg">Congratulations, name, you win!</p>
                 <button class="goodbye-btn">Play Again</button>
             </div>
+
         </div>
 
     </div>
