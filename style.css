@@ -97,6 +97,10 @@ h2 {
     cursor: pointer;
 }
 
+#player-0 {
+    background-color: #512e20;
+}
+
 /* FOOTER */
 
 .footer {
