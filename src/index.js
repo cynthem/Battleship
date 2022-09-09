@@ -23,20 +23,24 @@ startBtn.addEventListener('click', (e) => {
 // GAME PLAY
 
 const gameBoard = document.querySelectorAll('.right-board > button');
-const bottomText
+const bottomText = document.querySelector('.bottom-text');
+const rightText = document.createElement('span');
 const textPlayer = 'You fire a shot into enemy waters . . .';
 const textComputer = 'The enemy fires a shot into your waters . . .';
 const textCompTurn = 'The enemy is taking aim . . .';
 const textMiss = 'and it\'s a miss.';
 const textHit = 'and it\'s a hit!';
-const textSunkPlayer = 'You\'ve sunk their battleship.';
-const textSunkComp = 'They\'ve sunk your battleship.';
+const textSunkPlayer = ' You\'ve sunk their battleship.';
+const textSunkComp = ' They\'ve sunk your battleship.';
 const textWin = 'Congratulations, name. You\'re the winner!';
 const textLose = 'The enemy has won. Better luck next time.';
 
 gameBoard.forEach(cell => {
     cell.addEventListener('click', () => {
-        gameText.textContent = textPlayer;
+        topText.textContent = textComputer;
+        bottomText.textContent = textHit;
+        bottomText.appendChild(rightText);
+        rightText.textContent = textSunkComp;
     });
 });
 

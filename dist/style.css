@@ -127,13 +127,6 @@ h2 {
     border-top-right-radius: 150px;
 }
 
-.welcome-msg,
-.top-text {
-    margin-top: 2.5rem;
-    font-size: 1.5rem;
-    font-weight: 700;
-}
-
 .welcome-input {
     outline: none;
     border-top: none;
@@ -158,7 +151,20 @@ h2 {
     border-radius: 5px;
 }
 
+.welcome-msg,
+.top-text {
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    word-spacing: 0.3rem;
+}
 
+.bottom-text {
+    font-size: 1.5rem;
+    margin-top: 0;
+    word-spacing: 0.2rem;
+}
 
 
 
