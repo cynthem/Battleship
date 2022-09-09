@@ -39,14 +39,20 @@ const textLoseBottom = 'Better luck next time.';
 
 gameBoard.forEach(cell => {
     cell.addEventListener('click', () => {
+
+        // SUNK:
         /*topText.textContent = textComputer;
         bottomText.textContent = textHit;
         window.setTimeout(() => {
             bottomText.appendChild(rightText);
             rightText.textContent = textSunkComp;
         }, '1000');*/
-        topText.textContent = textWinTop;
+
+        // END GAME:
+       /*topText.textContent = textWinTop;
+        topText.classList.add('top-end');
         bottomText.textContent = textWinBottom;
+        bottomText.classList.add('bottom-end');*/
     });
 });
 
