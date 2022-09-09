@@ -5,6 +5,8 @@ const playerName = document.querySelector('.player-name');
 const compName = document.querySelector('.computer-name');
 const welcomeMsg = document.querySelector('.welcome');
 const gameText = document.querySelector('.gameplay-text');
+const topText = document.querySelector('.top-text');
+const textStart = 'Make your move . . .';
 
 startBtn.addEventListener('click', (e) => {
     e.preventDefault();
@@ -14,13 +16,14 @@ startBtn.addEventListener('click', (e) => {
     welcomeMsg.classList.add('hide');
     playerName.value = '';
     gameText.classList.remove('hide');
+    topText.textContent = textStart;
 });
 
 
 // GAME PLAY
 
 const gameBoard = document.querySelectorAll('.right-board > button');
-const textStart = 'Make your move . . .';
+const bottomText
 const textPlayer = 'You fire a shot into enemy waters . . .';
 const textComputer = 'The enemy fires a shot into your waters . . .';
 const textCompTurn = 'The enemy is taking aim . . .';
