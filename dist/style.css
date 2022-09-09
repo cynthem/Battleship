@@ -97,8 +97,16 @@ h2 {
     cursor: pointer;
 }
 
-#player-0 {
-    background-color: #512e20;
+#player-ship {
+    background-color: #44271c;
+}
+
+#hit {
+    background-color: #b09a9a;
+}
+
+#sunk {
+    background-color: #d42121;
 }
 
 /* FOOTER */
@@ -110,7 +118,7 @@ h2 {
     background-image: url('./resources/images/helm.png');
     background-repeat: no-repeat;
     background-position: center;
-    color: rgb(235, 235, 235);
+    color: #ebebeb;
     border-top-left-radius: 150px;
     border-top-right-radius: 150px;
 }
@@ -134,10 +142,15 @@ h2 {
 }
 
 .welcome-btn {
-    font-size: 1rem;
-    padding: 4px 8px 2px;
+    font-size: 1.2rem;
+    padding: 5px 10px 3px;
     margin-left: 0.5rem;
     cursor: pointer;
+    color: #ebebeb;
+    background: transparent;
+    outline: none;
+    border: 2px solid #ebebeb;
+    border-radius: 5px;
 }
 
 
