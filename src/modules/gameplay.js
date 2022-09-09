@@ -26,7 +26,6 @@ const gameplay = (() => {
     const textLoseBottom = 'Better luck next time.';
 
     function beginGame(userName, computer) {
-
         userPlayer = new Player(userName);
         computerPlayer = new Player(computer);
 
@@ -50,18 +49,31 @@ const gameplay = (() => {
             computerBoard[item].classList.add('computer-ship');
         });
 
+        userTurn();
+    }
+
+    function computerTurn() {}
+
+    function userTurn() {
         computerBoard.forEach(cell => {
-            cell.addEventListener('click', () => {
-                if (!cell.classList.contains('computer-ship')) {
+
+            if (!cell.hasAttribute('id')) {
+
+                cell.addEventListener('click', () => {
                     topText.textContent = textPlayer;
-                    window.setTimeout(() => {
-                        cell.setAttribute('id', 'hit');
-                    }, '100');
-                    window.setTimeout(() => {
-                        bottomText.textContent = textMiss;
-                    }, '1000');
-                }
-            }, {once : true});
+
+                    if (!cell.classList.contains('computer-ship')) {
+                        window.setTimeout(() => {
+                            cell.setAttribute('id', 'hit');
+                        }, '100');
+                        window.setTimeout(() => {
+                            bottomText.textContent = textMiss;
+                        }, '1000');
+                        computerTurn();
+                    }
+    
+                });
+            }
         });
 
         /*computerBoard.forEach(cell => {
@@ -96,7 +108,9 @@ const gameplay = (() => {
     }
 
     return {
-        beginGame
+        beginGame,
+        userTurn,
+        computerTurn
     };
 })();
 
