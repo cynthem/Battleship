@@ -32,15 +32,21 @@ const textMiss = 'and it\'s a miss.';
 const textHit = 'and it\'s a hit!';
 const textSunkPlayer = ' You\'ve sunk their battleship.';
 const textSunkComp = ' They\'ve sunk your battleship.';
-const textWin = 'Congratulations, name. You\'re the winner!';
-const textLose = 'The enemy has won. Better luck next time.';
+const textWinTop = 'Congratulations, name.';
+const textWinBottom = 'You\'re the winner!';
+const textLoseTop = 'The enemy has won.';
+const textLoseBottom = 'Better luck next time.';
 
 gameBoard.forEach(cell => {
     cell.addEventListener('click', () => {
-        topText.textContent = textComputer;
+        /*topText.textContent = textComputer;
         bottomText.textContent = textHit;
-        bottomText.appendChild(rightText);
-        rightText.textContent = textSunkComp;
+        window.setTimeout(() => {
+            bottomText.appendChild(rightText);
+            rightText.textContent = textSunkComp;
+        }, '1000');*/
+        topText.textContent = textWinTop;
+        bottomText.textContent = textWinBottom;
     });
 });
 
