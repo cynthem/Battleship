@@ -4,8 +4,11 @@ const gameplay = (() => {
 
     let userPlayer;
     let computerPlayer;
+    let userShips = [];
+    let computerShips = [];
 
-    const gameBoard = document.querySelectorAll('.right-board > button');
+    const computerBoard = document.querySelectorAll('.right-board > button');
+    const userBoard = document.querySelectorAll('.left-board > button');
     const topText = document.querySelector('.top-text');
     const bottomText = document.querySelector('.bottom-text');
     const rightText = document.createElement('span');
@@ -27,7 +30,41 @@ const gameplay = (() => {
         userPlayer = new Player(userName);
         computerPlayer = new Player(computer);
 
-        gameBoard.forEach(cell => {
+        userPlayer.gameboard.board.forEach(cell => {
+            if (cell.shipId !== null) {
+                userShips.push(userPlayer.gameboard.board.indexOf(cell));
+            }
+        })
+
+        computerPlayer.gameboard.board.forEach(cell => {
+            if (cell.shipId !== null) {
+                computerShips.push(computerPlayer.gameboard.board.indexOf(cell));
+            }
+        })
+
+        userShips.forEach(item => {
+            userBoard[item].setAttribute('id', 'player-ship');
+        });
+
+        computerShips.forEach(item => {
+            computerBoard[item].classList.add('computer-ship');
+        });
+
+        computerBoard.forEach(cell => {
+            cell.addEventListener('click', () => {
+                if (!cell.classList.contains('computer-ship')) {
+                    topText.textContent = textPlayer;
+                    window.setTimeout(() => {
+                        cell.setAttribute('id', 'hit');
+                    }, '100');
+                    window.setTimeout(() => {
+                        bottomText.textContent = textMiss;
+                    }, '1000');
+                }
+            }, {once : true});
+        });
+
+        /*computerBoard.forEach(cell => {
             cell.addEventListener('click', () => {
         
                 // MISS/HIT:
@@ -54,8 +91,8 @@ const gameplay = (() => {
                 bottomText.textContent = textWinBottom;
                 bottomText.classList.add('bottom-end');
                 replayBtn.classList.remove('hide');*/
-            });
-        });
+            //});
+        //});
     }
 
     return {
