@@ -176,11 +176,22 @@ h2 {
 
 .bottom-end {
     margin-top: 0;
+    margin-bottom: 0.2rem;
     word-spacing: 0.2rem;
     font-size: 2rem;
     font-weight: 700;
 }
 
+.replay-btn {
+    font-size: 1.5rem;
+    padding: 5px 10px 3px;
+    cursor: pointer;
+    background: #c88833;
+    color: #ebebeb;
+    outline: none;
+    border: 2px solid #c88833;
+    border-radius: 5px;
+}
 
 
 
