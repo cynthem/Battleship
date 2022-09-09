@@ -116,12 +116,10 @@ h2 {
 /* FOOTER */
 
 .footer {
-    width: 80vw;
+    width: 60vw;
     height: 20vh;
     text-align: center;
-    background-image: url('./resources/images/woodPlank.jpg');
-    background-repeat: no-repeat;
-    background-position: center;
+    background-color: #24150f;
     color: #ebebeb;
     border-top-left-radius: 150px;
     border-top-right-radius: 150px;
