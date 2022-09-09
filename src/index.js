@@ -3,6 +3,7 @@ const startBtn = document.querySelector('.welcome-btn');
 const playerName = document.querySelector('.player-name');
 const compName = document.querySelector('.computer-name');
 const welcomeMsg = document.querySelector('.welcome');
+const 
 
 startBtn.addEventListener('click', (e) => {
     e.preventDefault();
