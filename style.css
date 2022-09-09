@@ -16,6 +16,7 @@ body {
     margin: 0;
     font-family: 'Black Ops One';
     font-size: 1rem;
+    word-spacing: 0.2rem;
 }
 
 .content {
@@ -30,7 +31,7 @@ body {
 
 .header {
     width: 100vw;
-    height: 10vh;
+    height: 12vh;
     text-align: center;
     background-color: black;
     color: white;
@@ -38,18 +39,35 @@ body {
 }
 
 h1 {
-    margin: 0;
+    margin: 0.5rem;
 }
 
 /* MAIN */
 
 .main {
     width: 95vw;
-    height: 66vh;
+    height: 68vh;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
     font-size: 1.5rem;
+}
+
+h2 {
+    text-align: center;
+    margin: 0.5rem 0;
+}
+
+.left-board {
+    display: grid;
+    justify-items: center;
+    justify-content: center;
+    grid-template: repeat(10, 2.5rem) / repeat(10, 2.5rem);
+}
+
+.left-board > button {
+    height: 2.5rem;
+    width: 2.5rem;
 }
 
 /* FOOTER */
@@ -62,6 +80,10 @@ h1 {
     color: white;
     border-top-left-radius: 150px;
     border-top-right-radius: 150px;
+}
+
+.welcome-msg {
+    font-size: 1.25rem;
 }
 
 
