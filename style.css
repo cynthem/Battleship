@@ -58,14 +58,16 @@ h2 {
     margin: 0.5rem 0;
 }
 
-.left-board {
+.left-board,
+.right-board {
     display: grid;
     justify-items: center;
     justify-content: center;
     grid-template: repeat(10, 2.5rem) / repeat(10, 2.5rem);
 }
 
-.left-board > button {
+.left-board > button,
+.right-board > button {
     height: 2.5rem;
     width: 2.5rem;
 }
