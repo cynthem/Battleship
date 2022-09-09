@@ -10,13 +10,14 @@ const gameText = document.querySelector('.gameplay-text');
 
 startForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    playerName.textContent = startInput.value;
+    const inputName = startInput.value;
+    playerName.textContent = inputName;
     playerName.classList.remove('invisible'); 
     compName.classList.remove('invisible'); 
     welcomeMsg.classList.add('hide');
     playerName.value = '';
     window.setTimeout(() => {
         gameText.classList.remove('hide');
-        gameplay.beginGame();
+        gameplay.beginGame(inputName, 'computer');
     }, '1000');
 });

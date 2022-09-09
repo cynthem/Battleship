@@ -1,22 +1,31 @@
+const Player = require('../factories/Player');
+
 const gameplay = (() => {
 
-    function beginGame() {
-        const gameBoard = document.querySelectorAll('.right-board > button');
-        const topText = document.querySelector('.top-text');
-        const bottomText = document.querySelector('.bottom-text');
-        const rightText = document.createElement('span');
-        const replayBtn = document.querySelector('.replay-btn');
-        const textPlayer = 'You fire a shot into enemy waters . . .';
-        const textComputer = 'The enemy fires a shot into your waters . . .';
-        const textCompTurn = 'The enemy is taking aim . . .';
-        const textMiss = 'and it\'s a miss.';
-        const textHit = 'and it\'s a hit!';
-        const textSunkPlayer = ' You\'ve sunk their battleship.';
-        const textSunkComp = ' They\'ve sunk your battleship.';
-        const textWinTop = 'Congratulations, name.';
-        const textWinBottom = 'You\'re the winner!';
-        const textLoseTop = 'The enemy has won.';
-        const textLoseBottom = 'Better luck next time.';
+    let userPlayer;
+    let computerPlayer;
+
+    const gameBoard = document.querySelectorAll('.right-board > button');
+    const topText = document.querySelector('.top-text');
+    const bottomText = document.querySelector('.bottom-text');
+    const rightText = document.createElement('span');
+    const replayBtn = document.querySelector('.replay-btn');
+    const textPlayer = 'You fire a shot into enemy waters . . .';
+    const textComputer = 'The enemy fires a shot into your waters . . .';
+    const textCompTurn = 'The enemy is taking aim . . .';
+    const textMiss = 'and it\'s a miss.';
+    const textHit = 'and it\'s a hit!';
+    const textSunkPlayer = ' You\'ve sunk their battleship.';
+    const textSunkComp = ' They\'ve sunk your battleship.';
+    const textWinTop = 'Congratulations, name.';
+    const textWinBottom = 'You\'re the winner!';
+    const textLoseTop = 'The enemy has won.';
+    const textLoseBottom = 'Better luck next time.';
+
+    function beginGame(userName, computer) {
+
+        userPlayer = new Player(userName);
+        computerPlayer = new Player(computer);
 
         gameBoard.forEach(cell => {
             cell.addEventListener('click', () => {
