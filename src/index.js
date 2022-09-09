@@ -25,6 +25,7 @@ startBtn.addEventListener('click', (e) => {
 const gameBoard = document.querySelectorAll('.right-board > button');
 const bottomText = document.querySelector('.bottom-text');
 const rightText = document.createElement('span');
+const replayBtn = document.querySelector('.replay-btn');
 const textPlayer = 'You fire a shot into enemy waters . . .';
 const textComputer = 'The enemy fires a shot into your waters . . .';
 const textCompTurn = 'The enemy is taking aim . . .';
@@ -49,10 +50,11 @@ gameBoard.forEach(cell => {
         }, '1000');*/
 
         // END GAME:
-       /*topText.textContent = textWinTop;
+        topText.textContent = textWinTop;
         topText.classList.add('top-end');
         bottomText.textContent = textWinBottom;
-        bottomText.classList.add('bottom-end');*/
+        bottomText.classList.add('bottom-end');
+        replayBtn.classList.remove('hide');
     });
 });
 
