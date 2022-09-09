@@ -77,6 +77,10 @@ h2 {
     margin-bottom: 1rem;
 }
 
+.invisible {
+    color: transparent;
+}
+
 .left-board,
 .right-board {
     display: grid;
