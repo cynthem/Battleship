@@ -33,13 +33,13 @@ const gameplay = (() => {
             if (cell.shipId !== null) {
                 userShips.push(userPlayer.gameboard.board.indexOf(cell));
             }
-        })
+        });
 
         computerPlayer.gameboard.board.forEach(cell => {
             if (cell.shipId !== null) {
                 computerShips.push(computerPlayer.gameboard.board.indexOf(cell));
             }
-        })
+        });
 
         userShips.forEach(item => {
             userBoard[item].setAttribute('id', 'player-ship');
@@ -49,13 +49,35 @@ const gameplay = (() => {
             computerBoard[item].classList.add('computer-ship');
         });
 
-        userTurn();
+        computerBoard.forEach(cell => {
+            if (!cell.hasAttribute('id')) {
+                cell.addEventListener('click', userTurn);
+            }
+        });
     }
 
-    function computerTurn() {}
-
-    function userTurn() {
+    function computerTurn() {
         computerBoard.forEach(cell => {
+            cell.removeEventListener('click', userTurn);
+        })
+    }
+
+    function userTurn(e) {
+        topText.textContent = textPlayer;
+
+        const hitCell = e.target;
+
+        if (!hitCell.classList.contains('computer-ship')) {
+            window.setTimeout(() => {
+                hitCell.setAttribute('id', 'hit');
+            }, '100');
+            window.setTimeout(() => {
+                bottomText.textContent = textMiss;
+            }, '1000');
+            computerTurn();
+        }
+
+        /*computerBoard.forEach(cell => {
 
             if (!cell.hasAttribute('id')) {
 
@@ -74,7 +96,7 @@ const gameplay = (() => {
     
                 });
             }
-        });
+        });*/
 
         /*computerBoard.forEach(cell => {
             cell.addEventListener('click', () => {
