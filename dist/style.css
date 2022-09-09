@@ -1,22 +1,39 @@
-/* black-ops-one-regular - latin */
+/* cinzel-regular - latin */
 @font-face {
-    font-family: 'Black Ops One';
+    font-family: 'Cinzel';
     font-style: normal;
     font-weight: 400;
-    src: url('./resources/fonts/black-ops-one-v20-latin-regular.eot'); /* IE9 Compat Modes */
+    src: url('./resources/fonts/cinzel-v19-latin-regular.eot'); /* IE9 Compat Modes */
     src: local(''),
-         url('./resources/fonts/black-ops-one-v20-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
-         url('./resources/fonts/black-ops-one-v20-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
-         url('./resources/fonts/black-ops-one-v20-latin-regular.woff') format('woff'), /* Modern Browsers */
-         url('./resources/fonts/black-ops-one-v20-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
-         url('./resources/fonts/black-ops-one-v20-latin-regular.svg#BlackOpsOne') format('svg'); /* Legacy iOS */
-}
+         url('./resources/fonts/cinzel-v19-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('./resources/fonts/cinzel-v19-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+         url('./resources/fonts/cinzel-v19-latin-regular.woff') format('woff'), /* Modern Browsers */
+         url('./resources/fonts/cinzel-v19-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+         url('./resources/fonts/cinzel-v19-latin-regular.svg#Cinzel') format('svg'); /* Legacy iOS */
+  }
+  /* cinzel-700 - latin */
+  @font-face {
+    font-family: 'Cinzel';
+    font-style: normal;
+    font-weight: 700;
+    src: url('./resources/fonts/cinzel-v19-latin-700.eot'); /* IE9 Compat Modes */
+    src: local(''),
+         url('./resources/fonts/cinzel-v19-latin-700.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('./resources/fonts/cinzel-v19-latin-700.woff2') format('woff2'), /* Super Modern Browsers */
+         url('./resources/fonts/cinzel-v19-latin-700.woff') format('woff'), /* Modern Browsers */
+         url('./resources/fonts/cinzel-v19-latin-700.ttf') format('truetype'), /* Safari, Android, iOS */
+         url('./resources/fonts/cinzel-v19-latin-700.svg#Cinzel') format('svg'); /* Legacy iOS */
+  }
 
 body {
     margin: 0;
     font-family: 'Black Ops One';
     font-size: 1rem;
     word-spacing: 0.2rem;
+    background-image: url('./resources/images/map.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .content {
