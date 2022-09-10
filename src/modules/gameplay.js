@@ -223,6 +223,8 @@ const gameplay = (() => {
                 }, '5500');
 
             } else {
+                const sunkShip = userPlayer.gameboard.board[firstMove].shipId;
+
                 if (!turnResult.allSunk) {
                     window.setTimeout(() => {
                         userBoard[nextMove].setAttribute('id', 'player-hit');
@@ -232,11 +234,11 @@ const gameplay = (() => {
                         bottomText.textContent = textHit;
                         bottomText.appendChild(rightText);
                         rightText.style.visibility = 'hidden';
-                        //rightText.textContent = `${textSunkPlayer} ${shipType}.`; //ship type!?
+                        rightText.textContent = `${textSunkPlayer} ${sunkShip}.`;
                     }, '5500');
 
                     window.setTimeout(() => {
-                        //markSunkShip(shipType);     // mark ship?
+                        markPlayerSunk(sunkShip);
                         rightText.style.visibility = 'visible';
                         computerBoard.forEach(cell => {
                             if (!cell.hasAttribute('id')) {
@@ -312,6 +314,10 @@ const gameplay = (() => {
         });
     }
 
+    function markPlayerSunk(sunkShip) {
+
+    }
+
     function checkAllSunk() {
         return allSunk;
     }
@@ -328,6 +334,7 @@ const gameplay = (() => {
         checkIfSunk,
         recordSink,
         markSunkShip,
+        markPlayerSunk,
         checkAllSunk,
         resetGame
     };
