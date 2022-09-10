@@ -11,6 +11,7 @@ const gameplay = (() => {
     let userShips = [];
     let computerShips = [];
     let hitShips = [{carrier: 5}, {battle: 4}, {cruiser: 3}, {sub: 3}, {destroy: 2}];
+    let totalSunk = 0;
     let allSunk = false;
 
     const computerBoard = document.querySelectorAll('.right-board > button');
@@ -302,12 +303,11 @@ const gameplay = (() => {
     }
 
     function recordSink(num) {
-        let total = 0;
-        total += num;
+        totalSunk += num;
 
-        if (total < 5) {
+        if (totalSunk < 5) {
             return;
-        } else if (total === 5) {
+        } else if (totalSunk === 5) {
             allSunk = true;
         }
     }
