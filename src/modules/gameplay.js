@@ -6,7 +6,10 @@ const gameplay = (() => {
     let computerPlayer;
     let userShips = [];
     let computerShips = [];
+    let hitShips = [{carrier: 5}, {battle: 4}, {cruiser: 3}, {sub: 3}, {destroy: 2}];
+    let allSunk = false;
 
+    const computerGrid = document.querySelector('.right-board');
     const computerBoard = document.querySelectorAll('.right-board > button');
     const userBoard = document.querySelectorAll('.left-board > button');
     const topText = document.querySelector('.top-text');
@@ -37,7 +40,11 @@ const gameplay = (() => {
 
         computerPlayer.gameboard.board.forEach(cell => {
             if (cell.shipId !== null) {
-                computerShips.push(computerPlayer.gameboard.board.indexOf(cell));
+                const shipInfo = {
+                    shipName: cell.shipId,
+                    shipIndex: computerPlayer.gameboard.board.indexOf(cell)
+                };
+                computerShips.push(shipInfo);
             }
         });
 
@@ -46,7 +53,7 @@ const gameplay = (() => {
         });
 
         computerShips.forEach(item => {
-            computerBoard[item].classList.add('computer-ship');
+            computerBoard[item.shipIndex].classList.add('computer-ship');
         });
 
         computerBoard.forEach(cell => {
@@ -57,11 +64,10 @@ const gameplay = (() => {
     }
 
     function userTurn(e) {
-        topText.textContent = textPlayer;
-
         const hitCell = e.target;
 
         if (!hitCell.classList.contains('computer-ship')) {
+            topText.textContent = textPlayer;
             window.setTimeout(() => {
                 hitCell.setAttribute('id', 'hit');
             }, '100');
@@ -71,9 +77,12 @@ const gameplay = (() => {
             computerTurn();
         
         } else {
+            const hitIndex = [...hitCell.parentElement.children].indexOf(hitCell);
+            recordHit(hitIndex);
             const sunkStatus = checkIfSunk();
 
             if (!sunkStatus) {
+                topText.textContent = textPlayer;
                 window.setTimeout(() => {
                     hitCell.setAttribute('id', 'player-ship');
                 }, '100');
@@ -83,9 +92,11 @@ const gameplay = (() => {
                 computerTurn();
 
             } else {
+                recordSink(1);
                 const allSunk = checkAllSunk();
 
                 if (!allSunk) {
+                    topText.textContent = textPlayer;
                     window.setTimeout(() => {
                         hitCell.setAttribute('id', 'sunk');
                     }, '100');
@@ -99,20 +110,23 @@ const gameplay = (() => {
                         rightText.style.visibility = 'visible';
                     }, '1500');
                     computerTurn();
-                }
 
+                } else {
+                    window.setTimeout(() => {
+                        topText.textContent = textWinTop;
+                        topText.classList.add('top-end');
+                    }, '1000');
+                    window.setTimeout(() => {
+                        bottomText.textContent = textWinBottom;
+                        bottomText.classList.add('bottom-end');
+                    }, '1500');
+                    window.setTimeout(() => {
+                        replayBtn.classList.remove('hide');
+                        replayBtn.addEventListener('click', resetGame);
+                    }, '2000');
+                }
             }
         }
-
-        /*computerBoard.forEach(cell => {
-                // END GAME:
-                /*topText.textContent = textWinTop;
-                topText.classList.add('top-end');
-                bottomText.textContent = textWinBottom;
-                bottomText.classList.add('bottom-end');
-                replayBtn.classList.remove('hide');*/
-            //});
-        //});
     }
 
     function computerTurn() {
@@ -121,20 +135,64 @@ const gameplay = (() => {
         })
     }
 
+    function recordHit(hitIndex) {
+        computerShips.forEach(item => {
+
+            if (item.shipIndex === hitIndex) {
+                const shipType = item.shipName;
+
+                if (shipType === 'carrier') {
+                    hitShips[0].carrier = hitShips[0].carrier - 1;
+                    return shipType;
+                } else if (shipType === 'battleship') {
+                    hitShips[1].battle = hitShips[1].battle - 1;
+                    return shipType;
+                } else if (shipType === 'cruiser') {
+                    hitShips[2].cruiser = hitShips[2].cruiser - 1;
+                    return shipType;
+                } else if (shipType === 'submarine') {
+                    hitShips[3].sub = hitShips[3].sub - 1;
+                    return shipType;
+                } else if (shipType === 'destroyer') {
+                    hitShips[4].destroy = hitShips[4].destroy - 1;
+                    return shipType;
+                }
+            }
+        });
+    }
+
+    function recordSink(num) {
+        let total = 0;
+        total += num;
+
+        if (total < 5) {
+            return;
+        } else if (total === 5) {
+            allSunk = true;
+        }
+    }
+
     function checkIfSunk() {
         return false;
     }
 
     function checkAllSunk() {
-        return false;
+        return allSunk;
+    }
+
+    function resetGame() {
+        window.location.reload(true);
     }
 
     return {
         beginGame,
         userTurn,
         computerTurn,
+        recordHit,
+        recordSink,
         checkIfSunk,
-        checkAllSunk
+        checkAllSunk,
+        resetGame
     };
 })();
 
