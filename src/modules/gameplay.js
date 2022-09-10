@@ -63,8 +63,7 @@ const gameplay = (() => {
         computerShips.forEach(item => {
             computerBoard[item.shipIndex].classList.add('computer-ship');
         });
-        console.log('computer ships array:')
-        console.log(computerShips)
+
         computerBoard.forEach(cell => {
             if (!cell.hasAttribute('id')) {
                 cell.addEventListener('click', userTurn);
@@ -94,12 +93,6 @@ const gameplay = (() => {
 
             if (!sunkStatus) {
                 topText.textContent = textPlayer;
-                console.log('hit index:')
-                console.log(hitIndex)
-                console.log('ship type:')
-                console.log(shipType)
-                console.log('sunk status:')
-                console.log(sunkStatus)
                 window.setTimeout(() => {
                     hitCell.setAttribute('id', 'player-ship');
                 }, '100');
@@ -221,9 +214,9 @@ const gameplay = (() => {
                     }, '5000');
                     window.setTimeout(() => {
                         bottomText.textContent = textHit;
-                        bottomText.appendChild(rightText);
                         rightText.style.visibility = 'hidden';
                         rightText.textContent = `${textSunkComp} ${sunkShip}.`;
+                        bottomText.appendChild(rightText);
                     }, '5500');
                     window.setTimeout(() => {
                         markPlayerSunk(sunkShip);
@@ -243,23 +236,25 @@ const gameplay = (() => {
                     }, '5000');
                     window.setTimeout(() => {
                         bottomText.textContent = textHit;
-                        bottomText.appendChild(rightText);
                         rightText.style.visibility = 'hidden';
                         rightText.textContent = `${textSunkComp} ${sunkShip}.`;
+                        bottomText.appendChild(rightText);
                     }, '5500');
                     window.setTimeout(() => {
                         markPlayerSunk(sunkShip);
                         rightText.style.visibility = 'visible';
                     }, '6000');
                     window.setTimeout(() => {
+                        bottomText.removeChild(rightText);
+                        bottomText.textContent = '';
                         topText.textContent = textLoseTop;
                         topText.classList.add('top-end');
                     }, '7000');
                     window.setTimeout(() => {
-                        bottomText.textContent = textLoseBottom;
-                        bottomText.classList.add('bottom-end');
                         replayBtn.classList.remove('hide');
                         replayBtn.style.visibility = 'hidden';
+                        bottomText.classList.add('bottom-end');
+                        bottomText.textContent = textLoseBottom;
                     }, '7500');
                     window.setTimeout(() => {
                         replayBtn.style.visibility = 'visible';
@@ -271,11 +266,8 @@ const gameplay = (() => {
     }
 
     function recordHit(hitIndex) {
-        const match = computerShips.find(item => {
-            item.shipIndex === hitIndex;
-        });
-
-        const shipType = match.shipName;
+        const match = computerShips.find(item => item.shipIndex === hitIndex);
+        const shipType = match.shipName
 
         if (shipType === 'carrier') {
             hitShips[0].carrier = hitShips[0].carrier - 1;
