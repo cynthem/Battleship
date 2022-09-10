@@ -1,3 +1,5 @@
+const { ModuleFilenameHelpers } = require("webpack");
+
 class Computer {
     constructor() {
         this.availableShots = [];
@@ -79,3 +81,5 @@ class Computer {
         return 101;
     }
 }
+
+module.exports = Computer;

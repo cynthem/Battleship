@@ -1,9 +1,11 @@
 const Player = require('../factories/Player');
+const Computer = require('../factories/Computer');
 
 const gameplay = (() => {
 
     let userPlayer;
     let computerPlayer;
+    let computerMove;
     let userShips = [];
     let computerShips = [];
     let hitShips = [{carrier: 5}, {battle: 4}, {cruiser: 3}, {sub: 3}, {destroy: 2}];
@@ -28,6 +30,7 @@ const gameplay = (() => {
     const textLoseBottom = 'Better luck next time.';
 
     function beginGame(userName, computer) {
+        computerMove = new Computer();
         userPlayer = new Player(userName);
         computerPlayer = new Player(computer);
 
@@ -100,13 +103,13 @@ const gameplay = (() => {
                         hitCell.setAttribute('id', 'sunk');
                     }, '100');
                     window.setTimeout(() => {
-                        markSunkShip(shipType);
                         bottomText.textContent = textHit;
                         bottomText.appendChild(rightText);
                         rightText.style.visibility = 'hidden';
                         rightText.textContent = `${textSunkPlayer} ${shipType}.`;
                     }, '1000');
                     window.setTimeout(() => {
+                        markSunkShip(shipType);
                         rightText.style.visibility = 'visible';
                     }, '1500');
                     computerTurn();
@@ -134,13 +137,15 @@ const gameplay = (() => {
             cell.removeEventListener('click', userTurn);
         });
 
-        const textComputer = 'The enemy fires a shot into your waters . . .';
-        const textCompTurn = 'The enemy is taking aim . . .';
-        const textMiss = 'and it\'s a miss.';
-        const textHit = 'and it\'s a hit!';
-        const textSunkComp = ' They\'ve sunk your';
-        const textLoseTop = 'The enemy has won.';
-        const textLoseBottom = 'Better luck next time.';
+        
+        window.setTimeout(() => {
+            topText.textContent = textCompTurn;
+            bottomText.textContent = '';
+        }, '1000');
+
+        window.setTimeout(() => {
+            topText.textContent = textComputer;
+        }, '2000');
     }
 
     function recordHit(hitIndex) {
