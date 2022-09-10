@@ -9,7 +9,6 @@ const gameplay = (() => {
     let hitShips = [{carrier: 5}, {battle: 4}, {cruiser: 3}, {sub: 3}, {destroy: 2}];
     let allSunk = false;
 
-    const computerGrid = document.querySelector('.right-board');
     const computerBoard = document.querySelectorAll('.right-board > button');
     const userBoard = document.querySelectorAll('.left-board > button');
     const topText = document.querySelector('.top-text');
@@ -21,8 +20,8 @@ const gameplay = (() => {
     const textCompTurn = 'The enemy is taking aim . . .';
     const textMiss = 'and it\'s a miss.';
     const textHit = 'and it\'s a hit!';
-    const textSunkPlayer = ' You\'ve sunk their battleship.';
-    const textSunkComp = ' They\'ve sunk your battleship.';
+    const textSunkPlayer = ' You\'ve sunk their';
+    const textSunkComp = ' They\'ve sunk your';
     const textWinTop = 'Congratulations, name.';
     const textWinBottom = 'You\'re the winner!';
     const textLoseTop = 'The enemy has won.';
@@ -78,8 +77,8 @@ const gameplay = (() => {
         
         } else {
             const hitIndex = [...hitCell.parentElement.children].indexOf(hitCell);
-            recordHit(hitIndex);
-            const sunkStatus = checkIfSunk();
+            const shipType = recordHit(hitIndex);
+            const sunkStatus = checkIfSunk(shipType);
 
             if (!sunkStatus) {
                 topText.textContent = textPlayer;
@@ -101,10 +100,11 @@ const gameplay = (() => {
                         hitCell.setAttribute('id', 'sunk');
                     }, '100');
                     window.setTimeout(() => {
+                        markSunkShip(shipType);
                         bottomText.textContent = textHit;
                         bottomText.appendChild(rightText);
                         rightText.style.visibility = 'hidden';
-                        rightText.textContent = textSunkComp;
+                        rightText.textContent = `${textSunkPlayer} ${shipType}.`;
                     }, '1000');
                     window.setTimeout(() => {
                         rightText.style.visibility = 'visible';
@@ -132,7 +132,15 @@ const gameplay = (() => {
     function computerTurn() {
         computerBoard.forEach(cell => {
             cell.removeEventListener('click', userTurn);
-        })
+        });
+
+        const textComputer = 'The enemy fires a shot into your waters . . .';
+        const textCompTurn = 'The enemy is taking aim . . .';
+        const textMiss = 'and it\'s a miss.';
+        const textHit = 'and it\'s a hit!';
+        const textSunkComp = ' They\'ve sunk your';
+        const textLoseTop = 'The enemy has won.';
+        const textLoseBottom = 'Better luck next time.';
     }
 
     function recordHit(hitIndex) {
@@ -161,6 +169,20 @@ const gameplay = (() => {
         });
     }
 
+    function checkIfSunk(shipType) {
+        if (
+            (shipType === 'carrier' && hitShips[0].carrier === 0) ||
+            (shipType === 'battleship' && hitShips[1].battle === 0) ||
+            (shipType === 'cruiser' && hitShips[2].cruiser === 0) ||
+            (shipType === 'submarine' && hitShips[3].sub === 0) ||
+            (shipType === 'destroyer' && hitShips[4].destroyer === 0)
+        ) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     function recordSink(num) {
         let total = 0;
         total += num;
@@ -172,8 +194,13 @@ const gameplay = (() => {
         }
     }
 
-    function checkIfSunk() {
-        return false;
+    function markSunkShip(shipType) {
+        computerShips.forEach(item => {
+            if (item.shipName === shipType) {
+                const itemIndex = item.shipIndex;
+                computerBoard[itemIndex].setAttribute('id', 'sunk');
+            }
+        });
     }
 
     function checkAllSunk() {
@@ -189,8 +216,9 @@ const gameplay = (() => {
         userTurn,
         computerTurn,
         recordHit,
-        recordSink,
         checkIfSunk,
+        recordSink,
+        markSunkShip,
         checkAllSunk,
         resetGame
     };
