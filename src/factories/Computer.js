@@ -12,7 +12,6 @@ class Computer {
 
     determinePlay(status = { isShot: null, isShip: false, isSunk: false, allSunk: false }) {
         const index = status.isShot;
-        console.log(`index: ${index}`)
         this.availableShots[index].isShot = index;
         let randomPlay = this.availableShots.indexOf(this.availableShots[Math.floor(Math.random() * this.availableShots.length)]);
 

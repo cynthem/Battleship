@@ -161,6 +161,7 @@ const gameplay = (() => {
             const firstMove = Math.floor(Math.random() * 100);
             const firstResult = userPlayer.takeHit(firstMove);
             nextMove = computerMove.determinePlay(firstResult);
+            console.log(`first move: ${firstMove}`)
             console.log(`next move 1: ${nextMove}`)
             window.setTimeout(() => {
                 topText.textContent = textCompTurn;
@@ -201,7 +202,7 @@ const gameplay = (() => {
 
         let turnResult;
 
-        turnResult = computerMove.determinePlay(nextMove);
+        turnResult = userPlayer.takeHit(nextMove);
         nextMove = computerMove.determinePlay(turnResult);
         console.log(`next move: ${nextMove}`)
         window.setTimeout(() => {
