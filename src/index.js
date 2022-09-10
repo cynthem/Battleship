@@ -1,6 +1,5 @@
 const gameplay = require('./modules/gameplay');
 
-// GAME START
 const startInput = document.querySelector('.welcome-input');
 const startForm = document.querySelector('.welcome-name');
 const playerName = document.querySelector('.player-name');

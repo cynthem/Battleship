@@ -117,18 +117,35 @@ const gameplay = (() => {
                     }, '1500');
 
                 } else {
+                    topText.textContent = textPlayer;
+                    window.setTimeout(() => {
+                        hitCell.setAttribute('id', 'sunk');
+                    }, '100');
+                    window.setTimeout(() => {
+                        bottomText.textContent = textHit;
+                        bottomText.appendChild(rightText);
+                        rightText.style.visibility = 'hidden';
+                        rightText.textContent = `${textSunkPlayer} ${shipType}.`;
+                    }, '1000');
+                    window.setTimeout(() => {
+                        markSunkShip(shipType);
+                        rightText.style.visibility = 'visible';
+                        computerTurn();
+                    }, '1500');
                     window.setTimeout(() => {
                         topText.textContent = textWinTop;
                         topText.classList.add('top-end');
-                    }, '1000');
+                    }, '2500');
                     window.setTimeout(() => {
                         bottomText.textContent = textWinBottom;
                         bottomText.classList.add('bottom-end');
-                    }, '1500');
-                    window.setTimeout(() => {
                         replayBtn.classList.remove('hide');
+                        replayBtn.style.visibility = 'hidden';
+                    }, '3000');
+                    window.setTimeout(() => {
+                        replayBtn.style.visibility = 'visible';
                         replayBtn.addEventListener('click', resetGame);
-                    }, '2000');
+                    }, '3500');
                 }
             }
         }
@@ -144,7 +161,7 @@ const gameplay = (() => {
             const firstMove = Math.floor(Math.random() * 100);
             const firstResult = userPlayer.takeHit(firstMove);
             nextMove = computerMove.determinePlay(firstResult);
-            
+            console.log(`next move 1: ${nextMove}`)
             window.setTimeout(() => {
                 topText.textContent = textCompTurn;
                 bottomText.textContent = '';
@@ -185,7 +202,8 @@ const gameplay = (() => {
         let turnResult;
 
         turnResult = computerMove.determinePlay(nextMove);
-
+        nextMove = computerMove.determinePlay(turnResult);
+        console.log(`next move: ${nextMove}`)
         window.setTimeout(() => {
             topText.textContent = textCompTurn;
             bottomText.textContent = '';
@@ -229,14 +247,12 @@ const gameplay = (() => {
                     window.setTimeout(() => {
                         userBoard[nextMove].setAttribute('id', 'player-hit');
                     }, '5000');
-
                     window.setTimeout(() => {
                         bottomText.textContent = textHit;
                         bottomText.appendChild(rightText);
                         rightText.style.visibility = 'hidden';
                         rightText.textContent = `${textSunkPlayer} ${sunkShip}.`;
                     }, '5500');
-
                     window.setTimeout(() => {
                         markPlayerSunk(sunkShip);
                         rightText.style.visibility = 'visible';
@@ -248,7 +264,33 @@ const gameplay = (() => {
                     }, '6000');
 
                 } else {
-
+                    window.setTimeout(() => {
+                        userBoard[nextMove].setAttribute('id', 'player-hit');
+                    }, '5000');
+                    window.setTimeout(() => {
+                        bottomText.textContent = textHit;
+                        bottomText.appendChild(rightText);
+                        rightText.style.visibility = 'hidden';
+                        rightText.textContent = `${textSunkPlayer} ${sunkShip}.`;
+                    }, '5500');
+                    window.setTimeout(() => {
+                        markPlayerSunk(sunkShip);
+                        rightText.style.visibility = 'visible';
+                    }, '6000');
+                    window.setTimeout(() => {
+                        topText.textContent = textLoseTop;
+                        topText.classList.add('top-end');
+                    }, '7000');
+                    window.setTimeout(() => {
+                        bottomText.textContent = textLoseBottom;
+                        bottomText.classList.add('bottom-end');
+                        replayBtn.classList.remove('hide');
+                        replayBtn.style.visibility = 'hidden';
+                    }, '7500');
+                    window.setTimeout(() => {
+                        replayBtn.style.visibility = 'visible';
+                        replayBtn.addEventListener('click', resetGame);
+                    }, '8000');
                 }
             }
         }
