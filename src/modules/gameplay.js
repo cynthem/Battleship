@@ -6,8 +6,8 @@ const gameplay = (() => {
     let userPlayer;
     let computerPlayer;
     let computerMove;
-    let firstTime = true;
     let nextMove;
+    let turnResult = {};
     let userShips = [];
     let computerShips = [];
     let hitShips = [{carrier: 5}, {battle: 4}, {cruiser: 3}, {sub: 3}, {destroy: 2}];
@@ -35,6 +35,11 @@ const gameplay = (() => {
         computerMove = new Computer();
         userPlayer = new Player(userName);
         computerPlayer = new Player(computer);
+
+        nextMove = Math.floor(Math.random() * 100);
+        turnResult = userPlayer.takeHit(nextMove);
+        console.log(`first move: ${nextMove}`)
+        console.log(turnResult)
 
         userPlayer.gameboard.board.forEach(cell => {
             if (cell.shipId !== null) {
@@ -69,6 +74,8 @@ const gameplay = (() => {
 
     function userTurn(e) {
         const hitCell = e.target;
+
+        bottomText.textContent = '';
 
         if (!hitCell.classList.contains('computer-ship')) {
             topText.textContent = textPlayer;
@@ -156,55 +163,6 @@ const gameplay = (() => {
             cell.removeEventListener('click', userTurn);
         });
 
-        if (firstTime) {
-            firstTime = false;
-            const firstMove = Math.floor(Math.random() * 100);
-            const firstResult = userPlayer.takeHit(firstMove);
-            nextMove = computerMove.determinePlay(firstResult);
-            console.log(`first move: ${firstMove}`)
-            console.log(`next move 1: ${nextMove}`)
-            window.setTimeout(() => {
-                topText.textContent = textCompTurn;
-                bottomText.textContent = '';
-            }, '2000');
-    
-            window.setTimeout(() => {
-                topText.textContent = textComputer;
-            }, '4000');
-
-            if (!firstResult.isShip) {
-                window.setTimeout(() => {
-                    userBoard[firstMove].setAttribute('id', 'hit');
-                }, '5000');
-                window.setTimeout(() => {
-                    bottomText.textContent = textMiss;
-                    computerBoard.forEach(cell => {
-                        if (!cell.hasAttribute('id')) {
-                            cell.addEventListener('click', userTurn);
-                        }
-                    });
-                }, '5500');
-
-            } else {
-                window.setTimeout(() => {
-                    userBoard[firstMove].setAttribute('id', 'player-hit');
-                }, '5000');
-                window.setTimeout(() => {
-                    bottomText.textContent = textHit;
-                    computerBoard.forEach(cell => {
-                        if (!cell.hasAttribute('id')) {
-                            cell.addEventListener('click', userTurn);
-                        }
-                    });
-                }, '5500');
-            }
-        }
-
-        let turnResult;
-
-        turnResult = userPlayer.takeHit(nextMove);
-        nextMove = computerMove.determinePlay(turnResult);
-        console.log(`next move: ${nextMove}`)
         window.setTimeout(() => {
             topText.textContent = textCompTurn;
             bottomText.textContent = '';
@@ -219,6 +177,8 @@ const gameplay = (() => {
                 userBoard[nextMove].setAttribute('id', 'hit');
             }, '5000');
             window.setTimeout(() => {
+                nextMove = computerMove.determinePlay(turnResult);
+                turnResult = userPlayer.takeHit(nextMove);
                 bottomText.textContent = textMiss;
                 computerBoard.forEach(cell => {
                     if (!cell.hasAttribute('id')) {
@@ -233,6 +193,8 @@ const gameplay = (() => {
                     userBoard[nextMove].setAttribute('id', 'player-hit');
                 }, '5000');
                 window.setTimeout(() => {
+                    nextMove = computerMove.determinePlay(turnResult);
+                    turnResult = userPlayer.takeHit(nextMove);
                     bottomText.textContent = textHit;
                     computerBoard.forEach(cell => {
                         if (!cell.hasAttribute('id')) {
@@ -252,11 +214,13 @@ const gameplay = (() => {
                         bottomText.textContent = textHit;
                         bottomText.appendChild(rightText);
                         rightText.style.visibility = 'hidden';
-                        rightText.textContent = `${textSunkPlayer} ${sunkShip}.`;
+                        rightText.textContent = `${textSunkComp} ${sunkShip}.`;
                     }, '5500');
                     window.setTimeout(() => {
                         markPlayerSunk(sunkShip);
                         rightText.style.visibility = 'visible';
+                        nextMove = computerMove.determinePlay(turnResult);
+                        turnResult = userPlayer.takeHit(nextMove);
                         computerBoard.forEach(cell => {
                             if (!cell.hasAttribute('id')) {
                                 cell.addEventListener('click', userTurn);
@@ -272,7 +236,7 @@ const gameplay = (() => {
                         bottomText.textContent = textHit;
                         bottomText.appendChild(rightText);
                         rightText.style.visibility = 'hidden';
-                        rightText.textContent = `${textSunkPlayer} ${sunkShip}.`;
+                        rightText.textContent = `${textSunkComp} ${sunkShip}.`;
                     }, '5500');
                     window.setTimeout(() => {
                         markPlayerSunk(sunkShip);
