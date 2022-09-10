@@ -1,5 +1,3 @@
-const { ModuleFilenameHelpers } = require("webpack");
-
 class Computer {
     constructor() {
         this.availableShots = [];
@@ -19,8 +17,6 @@ class Computer {
 
         if (status.allSunk) {
             const endCode = 100;
-            console.log(`SUNK - index: ${index}`)
-            console.log(this.availableShots)
             return endCode;
         } 
 
@@ -28,7 +24,6 @@ class Computer {
             if (this.availableShots[randomPlay].isShot !== null) {
                 this.determinePlay({ isShot: index, isShip: false, isSunk: false, allSunk: false });
             } else {
-                console.log(`RANDOM - index: ${index}, next move: ${randomPlay}`)
                 return randomPlay;
             }
         }
@@ -42,7 +37,6 @@ class Computer {
                 if (this.availableShots[nextMove].isShot !== null) {
                     this.determinePlay({ isShot: index, isShip: true, isSunk: false, allSunk: false });
                 } else {
-                    console.log(`SHIP 10-89 - index: ${index}, next move: ${nextMove}`)
                     return nextMove;
                 }
 
@@ -52,7 +46,6 @@ class Computer {
                 if (this.availableShots[nextMove].isShot !== null) {
                     this.determinePlay({ isShot: index, isShip: true, isSunk: false, allSunk: false });
                 } else {
-                    console.log(`SHIP 1-9 - index: ${index}, next move: ${nextMove}`)
                     return nextMove;
                 }
 
@@ -62,7 +55,6 @@ class Computer {
                 if (this.availableShots[nextMove].isShot !== null) {
                     this.determinePlay({ isShot: index, isShip: true, isSunk: false, allSunk: false });
                 } else {
-                    console.log(`SHIP 90-98 - index: ${index}, next move: ${nextMove}`)
                     return nextMove;
                 }
 
@@ -72,7 +64,6 @@ class Computer {
                 if (this.availableShots[nextMove].isShot !== null) {
                     this.determinePlay({ isShot: index, isShip: true, isSunk: false, allSunk: false });
                 } else {
-                    console.log(`SHIP 0 - index: ${index}, next move: ${nextMove}`)
                     return nextMove;
                 }
             }

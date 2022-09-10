@@ -6,6 +6,8 @@ const gameplay = (() => {
     let userPlayer;
     let computerPlayer;
     let computerMove;
+    let firstMove;
+    let firstTime = true;
     let userShips = [];
     let computerShips = [];
     let hitShips = [{carrier: 5}, {battle: 4}, {cruiser: 3}, {sub: 3}, {destroy: 2}];
@@ -31,6 +33,8 @@ const gameplay = (() => {
 
     function beginGame(userName, computer) {
         computerMove = new Computer();
+        firstMove = computerMove.determinePlay();
+
         userPlayer = new Player(userName);
         computerPlayer = new Player(computer);
 
@@ -137,6 +141,10 @@ const gameplay = (() => {
             cell.removeEventListener('click', userTurn);
         });
 
+        if (firstTime) {
+            const secondMove = computerMove.determinePlay(firstMove);
+        }
+        const nextMove = computerMove()
         
         window.setTimeout(() => {
             topText.textContent = textCompTurn;
