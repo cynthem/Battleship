@@ -315,7 +315,12 @@ const gameplay = (() => {
     }
 
     function markPlayerSunk(sunkShip) {
-
+        userShips.forEach(item => {
+            if (item.shipName === sunkShip) {
+                const itemIndex = item.shipIndex;
+                userBoard[itemIndex].setAttribute('id', 'sunk');
+            }
+        });
     }
 
     function checkAllSunk() {
