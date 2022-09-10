@@ -39,8 +39,6 @@ const gameplay = (() => {
 
         nextMove = Math.floor(Math.random() * 100);
         turnResult = userPlayer.takeHit(nextMove);
-        console.log(`first move: ${nextMove}`)
-        console.log(turnResult)
 
         userPlayer.gameboard.board.forEach(cell => {
             if (cell.shipId !== null) {
@@ -65,7 +63,8 @@ const gameplay = (() => {
         computerShips.forEach(item => {
             computerBoard[item.shipIndex].classList.add('computer-ship');
         });
-
+        console.log('computer ships array:')
+        console.log(computerShips)
         computerBoard.forEach(cell => {
             if (!cell.hasAttribute('id')) {
                 cell.addEventListener('click', userTurn);
@@ -95,6 +94,12 @@ const gameplay = (() => {
 
             if (!sunkStatus) {
                 topText.textContent = textPlayer;
+                console.log('hit index:')
+                console.log(hitIndex)
+                console.log('ship type:')
+                console.log(shipType)
+                console.log('sunk status:')
+                console.log(sunkStatus)
                 window.setTimeout(() => {
                     hitCell.setAttribute('id', 'player-ship');
                 }, '100');
@@ -114,15 +119,17 @@ const gameplay = (() => {
                     }, '100');
                     window.setTimeout(() => {
                         bottomText.textContent = textHit;
-                        bottomText.appendChild(rightText);
                         rightText.style.visibility = 'hidden';
                         rightText.textContent = `${textSunkPlayer} ${shipType}.`;
+                        bottomText.appendChild(rightText);
                     }, '1000');
                     window.setTimeout(() => {
                         markSunkShip(shipType);
                         rightText.style.visibility = 'visible';
-                        computerTurn();
                     }, '1500');
+                    window.setTimeout(() => {
+                        computerTurn();
+                    }, '1600');
 
                 } else {
                     topText.textContent = textPlayer;
@@ -131,24 +138,25 @@ const gameplay = (() => {
                     }, '100');
                     window.setTimeout(() => {
                         bottomText.textContent = textHit;
-                        bottomText.appendChild(rightText);
                         rightText.style.visibility = 'hidden';
                         rightText.textContent = `${textSunkPlayer} ${shipType}.`;
+                        bottomText.appendChild(rightText);
                     }, '1000');
                     window.setTimeout(() => {
                         markSunkShip(shipType);
                         rightText.style.visibility = 'visible';
-                        computerTurn();
                     }, '1500');
                     window.setTimeout(() => {
+                        bottomText.removeChild(rightText);
+                        bottomText.textContent = '';
                         topText.textContent = textWinTop;
                         topText.classList.add('top-end');
                     }, '2500');
                     window.setTimeout(() => {
-                        bottomText.textContent = textWinBottom;
-                        bottomText.classList.add('bottom-end');
                         replayBtn.classList.remove('hide');
                         replayBtn.style.visibility = 'hidden';
+                        bottomText.classList.add('bottom-end');
+                        bottomText.textContent = textWinBottom;
                     }, '3000');
                     window.setTimeout(() => {
                         replayBtn.style.visibility = 'visible';
@@ -263,29 +271,28 @@ const gameplay = (() => {
     }
 
     function recordHit(hitIndex) {
-        computerShips.forEach(item => {
-
-            if (item.shipIndex === hitIndex) {
-                const shipType = item.shipName;
-
-                if (shipType === 'carrier') {
-                    hitShips[0].carrier = hitShips[0].carrier - 1;
-                    return shipType;
-                } else if (shipType === 'battleship') {
-                    hitShips[1].battle = hitShips[1].battle - 1;
-                    return shipType;
-                } else if (shipType === 'cruiser') {
-                    hitShips[2].cruiser = hitShips[2].cruiser - 1;
-                    return shipType;
-                } else if (shipType === 'submarine') {
-                    hitShips[3].sub = hitShips[3].sub - 1;
-                    return shipType;
-                } else if (shipType === 'destroyer') {
-                    hitShips[4].destroy = hitShips[4].destroy - 1;
-                    return shipType;
-                }
-            }
+        const match = computerShips.find(item => {
+            item.shipIndex === hitIndex;
         });
+
+        const shipType = match.shipName;
+
+        if (shipType === 'carrier') {
+            hitShips[0].carrier = hitShips[0].carrier - 1;
+            return shipType;
+        } else if (shipType === 'battleship') {
+            hitShips[1].battle = hitShips[1].battle - 1;
+            return shipType;
+        } else if (shipType === 'cruiser') {
+            hitShips[2].cruiser = hitShips[2].cruiser - 1;
+            return shipType;
+        } else if (shipType === 'submarine') {
+            hitShips[3].sub = hitShips[3].sub - 1;
+            return shipType;
+        } else if (shipType === 'destroyer') {
+            hitShips[4].destroy = hitShips[4].destroy - 1;
+            return shipType;
+        }
     }
 
     function checkIfSunk(shipType) {
