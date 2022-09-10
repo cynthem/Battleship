@@ -181,6 +181,75 @@ const gameplay = (() => {
                 }, '5500');
             }
         }
+
+        let turnResult;
+
+        turnResult = computerMove.determinePlay(nextMove);
+
+        window.setTimeout(() => {
+            topText.textContent = textCompTurn;
+            bottomText.textContent = '';
+        }, '2000');
+
+        window.setTimeout(() => {
+            topText.textContent = textComputer;
+        }, '4000');
+
+        if (!turnResult.isShip) {
+            window.setTimeout(() => {
+                userBoard[nextMove].setAttribute('id', 'hit');
+            }, '5000');
+            window.setTimeout(() => {
+                bottomText.textContent = textMiss;
+                computerBoard.forEach(cell => {
+                    if (!cell.hasAttribute('id')) {
+                        cell.addEventListener('click', userTurn);
+                    }
+                });
+            }, '5500');
+        
+        } else {
+            if (!turnResult.isSunk) {
+                window.setTimeout(() => {
+                    userBoard[nextMove].setAttribute('id', 'player-hit');
+                }, '5000');
+                window.setTimeout(() => {
+                    bottomText.textContent = textHit;
+                    computerBoard.forEach(cell => {
+                        if (!cell.hasAttribute('id')) {
+                            cell.addEventListener('click', userTurn);
+                        }
+                    });
+                }, '5500');
+
+            } else {
+                if (!turnResult.allSunk) {
+                    window.setTimeout(() => {
+                        userBoard[nextMove].setAttribute('id', 'player-hit');
+                    }, '5000');
+
+                    window.setTimeout(() => {
+                        bottomText.textContent = textHit;
+                        bottomText.appendChild(rightText);
+                        rightText.style.visibility = 'hidden';
+                        //rightText.textContent = `${textSunkPlayer} ${shipType}.`; //ship type!?
+                    }, '5500');
+
+                    window.setTimeout(() => {
+                        //markSunkShip(shipType);     // mark ship?
+                        rightText.style.visibility = 'visible';
+                        computerBoard.forEach(cell => {
+                            if (!cell.hasAttribute('id')) {
+                                cell.addEventListener('click', userTurn);
+                            }
+                        });
+                    }, '6000');
+
+                } else {
+
+                }
+            }
+        }
     }
 
     function recordHit(hitIndex) {
