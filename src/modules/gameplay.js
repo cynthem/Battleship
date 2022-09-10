@@ -154,18 +154,30 @@ const gameplay = (() => {
 
             if (!firstResult.isShip) {
                 window.setTimeout(() => {
-                    bottomText.textContent = textMiss;
                     userBoard[firstMove].setAttribute('id', 'hit');
+                }, '5000');
+                window.setTimeout(() => {
+                    bottomText.textContent = textMiss;
                     computerBoard.forEach(cell => {
                         if (!cell.hasAttribute('id')) {
                             cell.addEventListener('click', userTurn);
                         }
                     });
-                }, '5000');
-            }
+                }, '5500');
 
-            console.log(firstMove);
-            console.log(firstResult);
+            } else {
+                window.setTimeout(() => {
+                    userBoard[firstMove].setAttribute('id', 'player-hit');
+                }, '5000');
+                window.setTimeout(() => {
+                    bottomText.textContent = textHit;
+                    computerBoard.forEach(cell => {
+                        if (!cell.hasAttribute('id')) {
+                            cell.addEventListener('click', userTurn);
+                        }
+                    });
+                }, '5500');
+            }
         }
         
         /*window.setTimeout(() => {
