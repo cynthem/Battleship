@@ -6,7 +6,6 @@ const gameplay = (() => {
     let userPlayer;
     let computerPlayer;
     let computerMove;
-    let firstMove;
     let firstTime = true;
     let userShips = [];
     let computerShips = [];
@@ -33,8 +32,6 @@ const gameplay = (() => {
 
     function beginGame(userName, computer) {
         computerMove = new Computer();
-        firstMove = computerMove.determinePlay();
-
         userPlayer = new Player(userName);
         computerPlayer = new Player(computer);
 
@@ -79,8 +76,8 @@ const gameplay = (() => {
             }, '100');
             window.setTimeout(() => {
                 bottomText.textContent = textMiss;
+                computerTurn();
             }, '1000');
-            computerTurn();
         
         } else {
             const hitIndex = [...hitCell.parentElement.children].indexOf(hitCell);
@@ -94,8 +91,8 @@ const gameplay = (() => {
                 }, '100');
                 window.setTimeout(() => {
                     bottomText.textContent = textHit;
+                    computerTurn();
                 }, '1000');
-                computerTurn();
 
             } else {
                 recordSink(1);
@@ -115,8 +112,8 @@ const gameplay = (() => {
                     window.setTimeout(() => {
                         markSunkShip(shipType);
                         rightText.style.visibility = 'visible';
+                        computerTurn();
                     }, '1500');
-                    computerTurn();
 
                 } else {
                     window.setTimeout(() => {
@@ -142,18 +139,43 @@ const gameplay = (() => {
         });
 
         if (firstTime) {
-            const secondMove = computerMove.determinePlay(firstMove);
+            firstTime = false;
+            const firstMove = Math.floor(Math.random() * 100);
+            const firstResult = userPlayer.takeHit(firstMove);
+
+            window.setTimeout(() => {
+                topText.textContent = textCompTurn;
+                bottomText.textContent = '';
+            }, '2000');
+    
+            window.setTimeout(() => {
+                topText.textContent = textComputer;
+            }, '4000');
+
+            if (!firstResult.isShip) {
+                window.setTimeout(() => {
+                    bottomText.textContent = textMiss;
+                    userBoard[firstMove].setAttribute('id', 'hit');
+                    computerBoard.forEach(cell => {
+                        if (!cell.hasAttribute('id')) {
+                            cell.addEventListener('click', userTurn);
+                        }
+                    });
+                }, '5000');
+            }
+
+            console.log(firstMove);
+            console.log(firstResult);
         }
-        const nextMove = computerMove()
         
-        window.setTimeout(() => {
+        /*window.setTimeout(() => {
             topText.textContent = textCompTurn;
             bottomText.textContent = '';
         }, '1000');
 
         window.setTimeout(() => {
             topText.textContent = textComputer;
-        }, '2000');
+        }, '2000');*/
     }
 
     function recordHit(hitIndex) {

@@ -109,6 +109,10 @@ h2 {
     background-color: #b09a9a;
 }
 
+#player-hit {
+    background-color: black;
+}
+
 #sunk {
     background-color: #d42121;
 }
