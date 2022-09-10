@@ -56,12 +56,6 @@ const gameplay = (() => {
         });
     }
 
-    function computerTurn() {
-        computerBoard.forEach(cell => {
-            cell.removeEventListener('click', userTurn);
-        })
-    }
-
     function userTurn(e) {
         topText.textContent = textPlayer;
 
@@ -75,50 +69,42 @@ const gameplay = (() => {
                 bottomText.textContent = textMiss;
             }, '1000');
             computerTurn();
+        
+        } else {
+            const sunkStatus = checkIfSunk();
+
+            if (!sunkStatus) {
+                window.setTimeout(() => {
+                    hitCell.setAttribute('id', 'player-ship');
+                }, '100');
+                window.setTimeout(() => {
+                    bottomText.textContent = textHit;
+                }, '1000');
+                computerTurn();
+
+            } else {
+                const allSunk = checkAllSunk();
+
+                if (!allSunk) {
+                    window.setTimeout(() => {
+                        hitCell.setAttribute('id', 'sunk');
+                    }, '100');
+                    window.setTimeout(() => {
+                        bottomText.textContent = textHit;
+                        bottomText.appendChild(rightText);
+                        rightText.style.visibility = 'hidden';
+                        rightText.textContent = textSunkComp;
+                    }, '1000');
+                    window.setTimeout(() => {
+                        rightText.style.visibility = 'visible';
+                    }, '1500');
+                    computerTurn();
+                }
+
+            }
         }
 
         /*computerBoard.forEach(cell => {
-
-            if (!cell.hasAttribute('id')) {
-
-                cell.addEventListener('click', () => {
-                    topText.textContent = textPlayer;
-
-                    if (!cell.classList.contains('computer-ship')) {
-                        window.setTimeout(() => {
-                            cell.setAttribute('id', 'hit');
-                        }, '100');
-                        window.setTimeout(() => {
-                            bottomText.textContent = textMiss;
-                        }, '1000');
-                        computerTurn();
-                    }
-    
-                });
-            }
-        });*/
-
-        /*computerBoard.forEach(cell => {
-            cell.addEventListener('click', () => {
-        
-                // MISS/HIT:
-                topText.textContent = textPlayer;
-                window.setTimeout(() => {
-                    bottomText.textContent = textMiss;
-                }, '1000');
-        
-                // SUNK:
-                /*topText.textContent = textComputer;
-                window.setTimeout(() => {
-                    bottomText.textContent = textHit;
-                    bottomText.appendChild(rightText);
-                    rightText.style.visibility = 'hidden';
-                    rightText.textContent = textSunkComp;
-                }, '1000');
-                window.setTimeout(() => {
-                    rightText.style.visibility = 'visible';
-                }, '2000');*/
-        
                 // END GAME:
                 /*topText.textContent = textWinTop;
                 topText.classList.add('top-end');
@@ -129,10 +115,26 @@ const gameplay = (() => {
         //});
     }
 
+    function computerTurn() {
+        computerBoard.forEach(cell => {
+            cell.removeEventListener('click', userTurn);
+        })
+    }
+
+    function checkIfSunk() {
+        return false;
+    }
+
+    function checkAllSunk() {
+        return false;
+    }
+
     return {
         beginGame,
         userTurn,
-        computerTurn
+        computerTurn,
+        checkIfSunk,
+        checkAllSunk
     };
 })();
 
