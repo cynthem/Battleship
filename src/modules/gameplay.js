@@ -7,6 +7,7 @@ const gameplay = (() => {
     let computerPlayer;
     let computerMove;
     let firstTime = true;
+    let nextMove;
     let userShips = [];
     let computerShips = [];
     let hitShips = [{carrier: 5}, {battle: 4}, {cruiser: 3}, {sub: 3}, {destroy: 2}];
@@ -142,7 +143,8 @@ const gameplay = (() => {
             firstTime = false;
             const firstMove = Math.floor(Math.random() * 100);
             const firstResult = userPlayer.takeHit(firstMove);
-
+            nextMove = computerMove.determinePlay(firstResult);
+            
             window.setTimeout(() => {
                 topText.textContent = textCompTurn;
                 bottomText.textContent = '';
@@ -179,15 +181,6 @@ const gameplay = (() => {
                 }, '5500');
             }
         }
-        
-        /*window.setTimeout(() => {
-            topText.textContent = textCompTurn;
-            bottomText.textContent = '';
-        }, '1000');
-
-        window.setTimeout(() => {
-            topText.textContent = textComputer;
-        }, '2000');*/
     }
 
     function recordHit(hitIndex) {
