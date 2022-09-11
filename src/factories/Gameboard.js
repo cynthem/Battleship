@@ -60,7 +60,7 @@ class Gameboard {
             return status;
 
         } else if (status.shipId === 'carrier') {
-            this.carrier.isHit(index);
+            this.carrier.isHit();
             if (!this.carrier.isSunk()) {
                 return status;
             } else {
@@ -75,8 +75,8 @@ class Gameboard {
             }
 
         } else if (status.shipId === 'battleship') {
-            this.carrier.isHit(index);
-            if (!this.carrier.isSunk()) {
+            this.battleship.isHit();
+            if (!this.battleship.isSunk()) {
                 return status;
             } else {
                 this.sunk++;
@@ -90,8 +90,8 @@ class Gameboard {
             }
 
         } else if (status.shipId === 'cruiser') {
-            this.carrier.isHit(index);
-            if (!this.carrier.isSunk()) {
+            this.cruiser.isHit();
+            if (!this.cruiser.isSunk()) {
                 return status;
             } else {
                 this.sunk++;
@@ -105,8 +105,8 @@ class Gameboard {
             }
 
         } else if (status.shipId === 'submarine') {
-            this.carrier.isHit(index);
-            if (!this.carrier.isSunk()) {
+            this.submarine.isHit();
+            if (!this.submarine.isSunk()) {
                 return status;
             } else {
                 this.sunk++;
@@ -120,8 +120,8 @@ class Gameboard {
             }
 
         } else if (status.shipId === 'destroyer') {
-            this.carrier.isHit(index);
-            if (!this.carrier.isSunk()) {
+            this.destroyer.isHit();
+            if (!this.destroyer.isSunk()) {
                 return status;
             } else {
                 this.sunk++;
