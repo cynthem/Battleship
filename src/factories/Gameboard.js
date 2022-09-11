@@ -14,7 +14,7 @@ class Gameboard {
 
     init() {
         for (let i = 0; i < 100; i++) {
-            this.board.push({ cellId: i, shipId: 'none', isShot: false, isSunk: false, allSunk: false });
+            this.board.push({ cellId: i, shipId: 'none', isSunk: false, allSunk: false });
         }
 
         this.placeShips(this.carrier);
@@ -55,7 +55,6 @@ class Gameboard {
 
     receiveAttack(index) {
         let status = this.board[index];
-        status.isShot = true;
         
         if (status.shipId === 'none') {
             return status;
