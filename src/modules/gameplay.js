@@ -38,10 +38,7 @@ const gameplay = (() => {
         randomizeMove = new Computer();
         nextMove = Math.floor(Math.random() * 100);
         playerStatus = userPlayer.takeHit(nextMove);
-        console.log('first move:')
-        console.log(nextMove)
-        console.log('first status:')
-        console.log(playerStatus)
+
         userPlayer.gameboard.board.forEach(cell => {
             if (cell.shipId !== 'none') {
                 userBoard[cell.cellId].setAttribute('id', 'player-ship');
@@ -70,7 +67,8 @@ const gameplay = (() => {
         const hitIndex = [...hitCell.parentElement.children].indexOf(hitCell);
 
         computerStatus = computerPlayer.takeHit(hitIndex);
-
+        console.log('computer status:')
+        console.log(computerStatus)
         if (computerStatus.shipId === 'none') {
             topText.textContent = textPlayer;
             window.setTimeout(() => {
@@ -172,11 +170,11 @@ const gameplay = (() => {
             }, '4500');
             window.setTimeout(() => {
                 bottomText.textContent = textMiss;
+                console.log('player status before:')
+                console.log(playerStatus)
                 nextMove = randomizeMove.determinePlay(playerStatus);
                 playerStatus = userPlayer.takeHit(nextMove);
-                console.log('second move:')
-                console.log(nextMove)
-                console.log('second status:')
+                console.log('player status after:')
                 console.log(playerStatus)
                 computerBoard.forEach(cell => {
                     if (!cell.hasAttribute('id')) {
@@ -193,8 +191,12 @@ const gameplay = (() => {
                 }, '4500');
                 window.setTimeout(() => {
                     bottomText.textContent = textHit;
+                    console.log('player status before:')
+                    console.log(playerStatus)
                     nextMove = randomizeMove.determinePlay(playerStatus);
                     playerStatus = userPlayer.takeHit(nextMove);
+                    console.log('player status after:')
+                    console.log(playerStatus)
                     computerBoard.forEach(cell => {
                         if (!cell.hasAttribute('id')) {
                             cell.style.cursor = 'pointer';
@@ -219,8 +221,12 @@ const gameplay = (() => {
                     window.setTimeout(() => {
                         markPlayerSunk(shipType);
                         rightText.style.visibility = 'visible';
+                        console.log('player status before:')
+                        console.log(playerStatus)
                         nextMove = randomizeMove.determinePlay(playerStatus);
                         playerStatus = userPlayer.takeHit(nextMove);
+                        console.log('player status after:')
+                        console.log(playerStatus)
                         computerBoard.forEach(cell => {
                             if (!cell.hasAttribute('id')) {
                                 cell.style.cursor = 'pointer';
