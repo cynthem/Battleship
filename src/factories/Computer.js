@@ -12,9 +12,7 @@ class Computer {
 
     determinePlay(status) {
         const index = status.isShot;
-        const availableIndex = this.availableShots.indexOf(index);
-        this.availableShots.splice(availableIndex, 1);
-        console.log(this.availableShots)
+        this.availableShots.splice(index, 1);
         let randomPlay = this.availableShots.indexOf(this.availableShots[Math.floor(Math.random() * this.availableShots.length)]);
 
         if (status.allSunk) {
