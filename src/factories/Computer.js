@@ -11,34 +11,85 @@ class Computer {
     }
 
     determinePlay(status) {
-        // shipId: 'none', isShot: true, isSunk: false, allSunk: false
-        // shipId: carrier, isShot: true, isSunk: false, allSunk: false
-        // shipId: carrier, isShot: true, isSunk: true, allSunk: false
-        // shipId: carrier, isShot: true, isSunk: true, allSunk: true
-	    // status needs: gameboard.board index (matches index fired)
-
-
-        const index = status.isShot;
-        this.availableCells.splice(index, 1);
-        let randomPlay = this.availableCells.indexOf(this.availableCells[Math.floor(Math.random() * this.availableCells.length)]);
-
         if (status.allSunk) {
-            const endCode = 100;
-            return endCode;
+            status.nextMove = 101
+            return status;
         } 
 
-        if (!status.isShip || status.isSunk) {
-            return randomPlay;
-        }
+        const index = status.cellId;
+        const match = this.availableCells.find(cell => cell === index);
+        const matchIndex = this.availableCells.indexOf(match);
+        this.availableCells.splice(matchIndex, 1);
 
-        if (status.isShip) {
+        let randomPlay = this.availableCells[Math.floor(Math.random() * this.availableCells.length)];
+
+        if (status.shipId === 'none' || status.isSunk) {
+           status.nextMove = randomPlay;
+           return status; 
+
+        } else {
             let choices = [];
             const choiceOne = index - 1;
             const choiceTwo = index + 1;
             const choiceThree = index + 10;
             const choiceFour = index - 10;
 
-            if (index >= 10 && index <= 89) {
+            if (index === 0) {
+                status.nextMove = 10;
+                return status;
+
+            } else if (index === 9) {
+                status.nextMove = 19;
+                return status;
+
+            } else if (index === 90) {
+                status.nextMove = 80;
+                return status;
+
+            } else if (index === 99) {
+                status.nextMove = 89;
+                return status;
+
+            } else if (index === 10 || index === 20 || index === 30 || index === 40 || index === 50 || index === 60 || index === 70 || index === 80 || index === 19 || index === 29 || index === 39 || index === 49 || index === 59 || index === 69 || index === 79 || index === 89) {
+                if (this.availableCells.includes(choiceThree)) {
+                    choices.push(choiceThree);
+                }
+                if (this.availableCells.includes(choiceFour)) {
+                    choices.push(choiceFour);
+                }
+                randomPlay = choices[Math.floor(Math.random() * choices.length)];
+                status.nextMove = randomPlay;
+                return status;
+
+            } else if (index >= 1 && index <= 8) {
+                if (this.availableCells.includes(choiceOne)) {
+                    choices.push(choiceOne);
+                }
+                if (this.availableCells.includes(choiceTwo)) {
+                    choices.push(choiceTwo);
+                }
+                if (this.availableCells.includes(choiceThree)) {
+                    choices.push(choiceThree);
+                }
+                randomPlay = choices[Math.floor(Math.random() * choices.length)];
+                status.nextMove = randomPlay;
+                return status;
+
+            } else if (index >= 91 && index <= 98) {
+                if (this.availableCells.includes(choiceOne)) {
+                    choices.push(choiceOne);
+                }
+                if (this.availableCells.includes(choiceTwo)) {
+                    choices.push(choiceTwo);
+                }
+                if (this.availableCells.includes(choiceFour)) {
+                    choices.push(choiceFour);
+                }
+                randomPlay = choices[Math.floor(Math.random() * choices.length)];
+                status.nextMove = randomPlay;
+                return status;
+
+            } else {
                 if (this.availableCells.includes(choiceOne)) {
                     choices.push(choiceOne);
                 }
@@ -51,44 +102,9 @@ class Computer {
                 if (this.availableCells.includes(choiceFour)) {
                     choices.push(choiceFour);
                 }
-                const nextMove = choices[Math.floor(Math.random() * choices.length)];
-                return nextMove;
-
-            } else if (index < 10 && index > 0) {
-                if (this.availableCells.includes(choiceOne)) {
-                    choices.push(choiceOne);
-                }
-                if (this.availableCells.includes(choiceTwo)) {
-                    choices.push(choiceTwo);
-                }
-                if (this.availableCells.includes(choiceThree)) {
-                    choices.push(choiceThree);
-                }
-                const nextMove = choices[Math.floor(Math.random() * choices.length)];
-                return nextMove;
-
-            } else if (index > 89 && index < 99) {
-                if (this.availableCells.includes(choiceOne)) {
-                    choices.push(choiceOne);
-                }
-                if (this.availableCells.includes(choiceTwo)) {
-                    choices.push(choiceTwo);
-                }
-                if (this.availableCells.includes(choiceFour)) {
-                    choices.push(choiceFour);
-                }
-                const nextMove = choices[Math.floor(Math.random() * choices.length)];
-                return nextMove;
-
-            } else if (index === 0) {
-                if (this.availableCells.includes(choiceTwo)) {
-                    choices.push(choiceTwo);
-                }
-                if (this.availableCells.includes(choiceThree)) {
-                    choices.push(choiceThree);
-                }
-                const nextMove = choices[Math.floor(Math.random() * choices.length)];
-                return nextMove;
+                randomPlay = choices[Math.floor(Math.random() * choices.length)];
+                status.nextMove = randomPlay;
+                return status;
             }
         }
     }
