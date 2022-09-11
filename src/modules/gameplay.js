@@ -38,7 +38,10 @@ const gameplay = (() => {
         randomizeMove = new Computer();
         nextMove = Math.floor(Math.random() * 100);
         playerStatus = userPlayer.takeHit(nextMove);
-
+        console.log('first move:')
+        console.log(nextMove)
+        console.log('first status:')
+        console.log(playerStatus)
         userPlayer.gameboard.board.forEach(cell => {
             if (cell.shipId !== 'none') {
                 userBoard[cell.cellId].setAttribute('id', 'player-ship');
@@ -171,6 +174,10 @@ const gameplay = (() => {
                 bottomText.textContent = textMiss;
                 nextMove = randomizeMove.determinePlay(playerStatus);
                 playerStatus = userPlayer.takeHit(nextMove);
+                console.log('second move:')
+                console.log(nextMove)
+                console.log('second status:')
+                console.log(playerStatus)
                 computerBoard.forEach(cell => {
                     if (!cell.hasAttribute('id')) {
                         cell.style.cursor = 'pointer';
