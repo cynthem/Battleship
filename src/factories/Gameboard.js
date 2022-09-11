@@ -14,7 +14,7 @@ class Gameboard {
 
     init() {
         for (let i = 0; i < 100; i++) {
-            this.board.push({ shipId: 'none', isShot: false, isSunk: false, allSunk: false });
+            this.board.push({ cellId: i, shipId: 'none', isShot: false, isSunk: false, allSunk: false });
         }
 
         this.placeShips(this.carrier);
@@ -119,7 +119,7 @@ class Gameboard {
                     return status;
                 }
             }
-            
+
         } else if (status.shipId === 'destroyer') {
             this.carrier.isHit(index);
             if (!this.carrier.isSunk()) {

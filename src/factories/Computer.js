@@ -1,19 +1,26 @@
 class Computer {
     constructor() {
-        this.availableShots = [];
+        this.availableCells = [];
         this.init();
     }
 
     init() {
         for (let i = 0; i < 100; i++) {
-            this.availableShots.push(i);
+            this.availableCells.push(i);
         }
     }
 
     determinePlay(status) {
+        // shipId: 'none', isShot: true, isSunk: false, allSunk: false
+        // shipId: carrier, isShot: true, isSunk: false, allSunk: false
+        // shipId: carrier, isShot: true, isSunk: true, allSunk: false
+        // shipId: carrier, isShot: true, isSunk: true, allSunk: true
+	    // status needs: gameboard.board index (matches index fired)
+
+
         const index = status.isShot;
-        this.availableShots.splice(index, 1);
-        let randomPlay = this.availableShots.indexOf(this.availableShots[Math.floor(Math.random() * this.availableShots.length)]);
+        this.availableCells.splice(index, 1);
+        let randomPlay = this.availableCells.indexOf(this.availableCells[Math.floor(Math.random() * this.availableCells.length)]);
 
         if (status.allSunk) {
             const endCode = 100;
@@ -32,52 +39,52 @@ class Computer {
             const choiceFour = index - 10;
 
             if (index >= 10 && index <= 89) {
-                if (this.availableShots.includes(choiceOne)) {
+                if (this.availableCells.includes(choiceOne)) {
                     choices.push(choiceOne);
                 }
-                if (this.availableShots.includes(choiceTwo)) {
+                if (this.availableCells.includes(choiceTwo)) {
                     choices.push(choiceTwo);
                 }
-                if (this.availableShots.includes(choiceThree)) {
+                if (this.availableCells.includes(choiceThree)) {
                     choices.push(choiceThree);
                 }
-                if (this.availableShots.includes(choiceFour)) {
+                if (this.availableCells.includes(choiceFour)) {
                     choices.push(choiceFour);
                 }
                 const nextMove = choices[Math.floor(Math.random() * choices.length)];
                 return nextMove;
 
             } else if (index < 10 && index > 0) {
-                if (this.availableShots.includes(choiceOne)) {
+                if (this.availableCells.includes(choiceOne)) {
                     choices.push(choiceOne);
                 }
-                if (this.availableShots.includes(choiceTwo)) {
+                if (this.availableCells.includes(choiceTwo)) {
                     choices.push(choiceTwo);
                 }
-                if (this.availableShots.includes(choiceThree)) {
+                if (this.availableCells.includes(choiceThree)) {
                     choices.push(choiceThree);
                 }
                 const nextMove = choices[Math.floor(Math.random() * choices.length)];
                 return nextMove;
 
             } else if (index > 89 && index < 99) {
-                if (this.availableShots.includes(choiceOne)) {
+                if (this.availableCells.includes(choiceOne)) {
                     choices.push(choiceOne);
                 }
-                if (this.availableShots.includes(choiceTwo)) {
+                if (this.availableCells.includes(choiceTwo)) {
                     choices.push(choiceTwo);
                 }
-                if (this.availableShots.includes(choiceFour)) {
+                if (this.availableCells.includes(choiceFour)) {
                     choices.push(choiceFour);
                 }
                 const nextMove = choices[Math.floor(Math.random() * choices.length)];
                 return nextMove;
 
             } else if (index === 0) {
-                if (this.availableShots.includes(choiceTwo)) {
+                if (this.availableCells.includes(choiceTwo)) {
                     choices.push(choiceTwo);
                 }
-                if (this.availableShots.includes(choiceThree)) {
+                if (this.availableCells.includes(choiceThree)) {
                     choices.push(choiceThree);
                 }
                 const nextMove = choices[Math.floor(Math.random() * choices.length)];
