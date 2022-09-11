@@ -97,10 +97,6 @@ h2 {
     border: 2px groove #7e4a37;
 }
 
-.right-board > button {
-    cursor: none;
-}
-
 #player-ship {
     background-color: #44271c;
 }
@@ -194,8 +190,6 @@ h2 {
     border: 2px solid #c88833;
     border-radius: 5px;
 }
-
-
 
 .hide {
     display: none;
