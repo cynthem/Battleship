@@ -67,10 +67,6 @@ const gameplay = (() => {
         const hitIndex = [...hitCell.parentElement.children].indexOf(hitCell);
 
         computerStatus = computerPlayer.takeHit(hitIndex);
-        // cellId: 0, shipId: 'none', isShot: true, isSunk: false, allSunk: false
-        // cellId: 1, shipId: carrier, isShot: true, isSunk: false, allSunk: false
-        // cellId: 2, shipId: carrier, isShot: true, isSunk: true, allSunk: false
-        // cellId: 3, shipId: carrier, isShot: true, isSunk: true, allSunk: true
 
         if (computerStatus.shipId === 'none') {
             topText.textContent = textPlayer;
@@ -131,14 +127,15 @@ const gameplay = (() => {
                         rightText.style.visibility = 'visible';
                     }, '1500');
                     window.setTimeout(() => {
-                        bottomText.removeChild(rightText);
+                        topText.textContent = '';
                         bottomText.textContent = '';
-                        topText.textContent = textWinTop;
-                        topText.classList.add('top-end');
-                    }, '2500');
-                    window.setTimeout(() => {
+                        //bottomText.removeChild(rightText);
                         replayBtn.classList.remove('hide');
                         replayBtn.style.visibility = 'hidden';
+                        topText.classList.add('top-end');
+                        topText.textContent = textWinTop;
+                    }, '2500');
+                    window.setTimeout(() => {
                         bottomText.classList.add('bottom-end');
                         bottomText.textContent = textWinBottom;
                     }, '3000');
@@ -151,17 +148,136 @@ const gameplay = (() => {
         }
     }
 
-    function computerTurn() {}
+    function computerTurn() {
+        computerBoard.forEach(cell => {
+            cell.style.cursor = 'none';
+            cell.removeEventListener('click', userTurn);
+        });
 
-    function markSunkShip(shipType) {}
+        window.setTimeout(() => {
+            topText.textContent = textCompTurn;
+            bottomText.textContent = '';
+        }, '2000');
 
-    function resetGame() {}
+        window.setTimeout(() => {
+            topText.textContent = textComputer;
+        }, '3500');
+
+        if (playerStatus.shipId === 'none') {
+            window.setTimeout(() => {
+                userBoard[nextMove].setAttribute('id', 'hit');
+            }, '4500');
+            window.setTimeout(() => {
+                bottomText.textContent = textMiss;
+                nextMove = randomizeMove.determinePlay(playerStatus);
+                playerStatus = userPlayer.takeHit(nextMove);
+                computerBoard.forEach(cell => {
+                    if (!cell.hasAttribute('id')) {
+                        cell.style.cursor = 'pointer';
+                        cell.addEventListener('click', userTurn);
+                    }
+                });
+            }, '5000');
+        
+        } else {
+            if (!playerStatus.isSunk) {
+                window.setTimeout(() => {
+                    userBoard[nextMove].setAttribute('id', 'player-hit');
+                }, '4500');
+                window.setTimeout(() => {
+                    bottomText.textContent = textHit;
+                    nextMove = randomizeMove.determinePlay(playerStatus);
+                    playerStatus = userPlayer.takeHit(nextMove);
+                    computerBoard.forEach(cell => {
+                        if (!cell.hasAttribute('id')) {
+                            cell.style.cursor = 'pointer';
+                            cell.addEventListener('click', userTurn);
+                        }
+                    });
+                }, '5000');
+
+            } else {
+                const shipType = playerStatus.shipId;
+
+                if (!playerStatus.allSunk) {
+                    window.setTimeout(() => {
+                        userBoard[nextMove].setAttribute('id', 'player-hit');
+                    }, '4500');
+                    window.setTimeout(() => {
+                        bottomText.textContent = textHit;
+                        rightText.style.visibility = 'hidden';
+                        rightText.textContent = `${textSunkComp} ${shipType}.`;
+                        bottomText.appendChild(rightText);
+                    }, '5000');
+                    window.setTimeout(() => {
+                        markPlayerSunk(shipType);
+                        rightText.style.visibility = 'visible';
+                        nextMove = randomizeMove.determinePlay(playerStatus);
+                        playerStatus = userPlayer.takeHit(nextMove);
+                        computerBoard.forEach(cell => {
+                            if (!cell.hasAttribute('id')) {
+                                cell.style.cursor = 'pointer';
+                                cell.addEventListener('click', userTurn);
+                            }
+                        });
+                    }, '5500');
+
+                } else {
+                    window.setTimeout(() => {
+                        userBoard[nextMove].setAttribute('id', 'player-hit');
+                    }, '4500');
+                    window.setTimeout(() => {
+                        bottomText.textContent = textHit;
+                        rightText.style.visibility = 'hidden';
+                        rightText.textContent = `${textSunkComp} ${shipType}.`;
+                        bottomText.appendChild(rightText);
+                    }, '5000');
+                    window.setTimeout(() => {
+                        markPlayerSunk(shipType);
+                        rightText.style.visibility = 'visible';
+                    }, '5500');
+                    window.setTimeout(() => {
+                        topText.textContent = '';
+                        bottomText.textContent = '';
+                        //bottomText.removeChild(rightText);
+                        replayBtn.classList.remove('hide');
+                        replayBtn.style.visibility = 'hidden';
+                        topText.classList.add('top-end');
+                        topText.textContent = textLoseTop;
+                    }, '6500');
+                    window.setTimeout(() => {
+                        bottomText.classList.add('bottom-end');
+                        bottomText.textContent = textLoseBottom;
+                    }, '7000');
+                    window.setTimeout(() => {
+                        replayBtn.style.visibility = 'visible';
+                        replayBtn.addEventListener('click', resetGame);
+                    }, '7500');
+                }
+            }
+        }
+    }
+
+    function markSunkShip(shipType) {
+        computerPlayer.gameboard.board.forEach(cell => {
+            if (cell.shipId === shipType) {
+                computerBoard[cell.cellId].setAttribute('id', 'sunk');
+            }
+        });
+    }
+
+    function markPlayerSunk(shipType) {}
+
+    function resetGame() {
+        window.location.reload(true);
+    }
 
     return {
         beginGame,
         userTurn,
         computerTurn,
         markSunkShip,
+        markPlayerSunk,
         resetGame
     };
 })();
