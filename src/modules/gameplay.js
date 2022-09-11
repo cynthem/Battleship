@@ -150,7 +150,7 @@ const gameplay = (() => {
 
     function computerTurn() {
         computerBoard.forEach(cell => {
-            cell.style.cursor = 'none';
+            cell.style.cursor = 'default';
             cell.removeEventListener('click', userTurn);
         });
 
