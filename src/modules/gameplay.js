@@ -9,6 +9,7 @@ const gameplay = (() => {
     let nextMove;
     let playerStatus;
     let computerStatus;
+    let playerName = '';
 
     const computerBoard = document.querySelectorAll('.right-board > button');
     const userBoard = document.querySelectorAll('.left-board > button');
@@ -23,7 +24,6 @@ const gameplay = (() => {
     const textHit = 'and it\'s a hit!';
     const textSunkPlayer = ' You\'ve sunk their';
     const textSunkComp = ' They\'ve sunk your';
-    let playerName = '';
     const textWinTop = `Congratulations, ${playerName}.`;
     const textWinBottom = 'You\'re the winner!';
     const textLoseTop = 'The enemy has won.';
@@ -266,7 +266,13 @@ const gameplay = (() => {
         });
     }
 
-    function markPlayerSunk(shipType) {}
+    function markPlayerSunk(shipType) {
+        userPlayer.gameboard.board.forEach(cell => {
+            if (cell.shipId === shipType) {
+                userBoard[cell.cellId].setAttribute('id', 'sunk');
+            }
+        });
+    }
 
     function resetGame() {
         window.location.reload(true);
