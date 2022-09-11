@@ -67,8 +67,7 @@ const gameplay = (() => {
         const hitIndex = [...hitCell.parentElement.children].indexOf(hitCell);
 
         computerStatus = computerPlayer.takeHit(hitIndex);
-        console.log('computer status:')
-        console.log(computerStatus)
+
         if (computerStatus.shipId === 'none') {
             topText.textContent = textPlayer;
             window.setTimeout(() => {
@@ -170,12 +169,8 @@ const gameplay = (() => {
             }, '4500');
             window.setTimeout(() => {
                 bottomText.textContent = textMiss;
-                console.log('player status before:')
-                console.log(playerStatus)
                 nextMove = randomizeMove.determinePlay(playerStatus);
                 playerStatus = userPlayer.takeHit(nextMove);
-                console.log('player status after:')
-                console.log(playerStatus)
                 computerBoard.forEach(cell => {
                     if (!cell.hasAttribute('id')) {
                         cell.style.cursor = 'pointer';
@@ -191,12 +186,8 @@ const gameplay = (() => {
                 }, '4500');
                 window.setTimeout(() => {
                     bottomText.textContent = textHit;
-                    console.log('player status before:')
-                    console.log(playerStatus)
                     nextMove = randomizeMove.determinePlay(playerStatus);
                     playerStatus = userPlayer.takeHit(nextMove);
-                    console.log('player status after:')
-                    console.log(playerStatus)
                     computerBoard.forEach(cell => {
                         if (!cell.hasAttribute('id')) {
                             cell.style.cursor = 'pointer';
@@ -221,12 +212,8 @@ const gameplay = (() => {
                     window.setTimeout(() => {
                         markPlayerSunk(shipType);
                         rightText.style.visibility = 'visible';
-                        console.log('player status before:')
-                        console.log(playerStatus)
                         nextMove = randomizeMove.determinePlay(playerStatus);
                         playerStatus = userPlayer.takeHit(nextMove);
-                        console.log('player status after:')
-                        console.log(playerStatus)
                         computerBoard.forEach(cell => {
                             if (!cell.hasAttribute('id')) {
                                 cell.style.cursor = 'pointer';

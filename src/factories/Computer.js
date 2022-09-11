@@ -20,10 +20,11 @@ class Computer {
         const matchIndex = this.availableCells.indexOf(match);
         this.availableCells.splice(matchIndex, 1);
 
-        let randomPlay = this.availableCells[Math.floor(Math.random() * this.availableCells.length)];
+        let randomPlay;
 
         if (status.shipId === 'none' || status.isSunk) {
-           return randomPlay; 
+            randomPlay = this.availableCells[Math.floor(Math.random() * this.availableCells.length)];
+            return randomPlay; 
 
         } else {
             let choices = [];
@@ -32,17 +33,21 @@ class Computer {
             const choiceThree = index + 10;
             const choiceFour = index - 10;
 
-            if (index === 0) {
-                return 10;
+            if (index === 0 || index === 9) {
+                if (this.availableCells.includes(choiceThree)) {
+                    randomPlay = choiceThree;
+                } else {
+                    randomPlay = this.availableCells[Math.floor(Math.random() * this.availableCells.length)];
+                }
+                return randomPlay;
 
-            } else if (index === 9) {
-                return 19;
-
-            } else if (index === 90) {
-                return 80;
-
-            } else if (index === 99) {
-                return 89;
+            } else if (index === 90 || index === 99) {
+                if (this.availableCells.includes(choiceFour)) {
+                    randomPlay = choiceFour;
+                } else {
+                    randomPlay = this.availableCells[Math.floor(Math.random() * this.availableCells.length)];
+                }
+                return randomPlay;
 
             } else if (index === 10 || index === 20 || index === 30 || index === 40 || index === 50 || index === 60 || index === 70 || index === 80 || index === 19 || index === 29 || index === 39 || index === 49 || index === 59 || index === 69 || index === 79 || index === 89) {
                 if (this.availableCells.includes(choiceThree)) {
@@ -51,7 +56,11 @@ class Computer {
                 if (this.availableCells.includes(choiceFour)) {
                     choices.push(choiceFour);
                 }
-                randomPlay = choices[Math.floor(Math.random() * choices.length)];
+                if (choices.length < 1) {
+                    randomPlay = this.availableCells[Math.floor(Math.random() * this.availableCells.length)];
+                } else {
+                    randomPlay = choices[Math.floor(Math.random() * choices.length)];
+                }
                 return randomPlay;
 
             } else if (index >= 1 && index <= 8) {
@@ -64,7 +73,11 @@ class Computer {
                 if (this.availableCells.includes(choiceThree)) {
                     choices.push(choiceThree);
                 }
-                randomPlay = choices[Math.floor(Math.random() * choices.length)];
+                if (choices.length < 1) {
+                    randomPlay = this.availableCells[Math.floor(Math.random() * this.availableCells.length)];
+                } else {
+                    randomPlay = choices[Math.floor(Math.random() * choices.length)];
+                }
                 return randomPlay;
 
             } else if (index >= 91 && index <= 98) {
@@ -77,7 +90,11 @@ class Computer {
                 if (this.availableCells.includes(choiceFour)) {
                     choices.push(choiceFour);
                 }
-                randomPlay = choices[Math.floor(Math.random() * choices.length)];
+                if (choices.length < 1) {
+                    randomPlay = this.availableCells[Math.floor(Math.random() * this.availableCells.length)];
+                } else {
+                    randomPlay = choices[Math.floor(Math.random() * choices.length)];
+                }
                 return randomPlay;
 
             } else {
@@ -93,7 +110,11 @@ class Computer {
                 if (this.availableCells.includes(choiceFour)) {
                     choices.push(choiceFour);
                 }
-                randomPlay = choices[Math.floor(Math.random() * choices.length)];
+                if (choices.length < 1) {
+                    randomPlay = this.availableCells[Math.floor(Math.random() * this.availableCells.length)];
+                } else {
+                    randomPlay = choices[Math.floor(Math.random() * choices.length)];
+                }
                 return randomPlay;
             }
         }
