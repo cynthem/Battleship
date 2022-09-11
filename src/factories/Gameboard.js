@@ -14,7 +14,7 @@ class Gameboard {
 
     init() {
         for (let i = 0; i < 100; i++) {
-            this.board.push({ shipId: 'initial', isShot: false });
+            this.board.push({ shipId: 'none', isShot: false, isSunk: false, allSunk: false });
         }
 
         this.placeShips(this.carrier);
@@ -26,19 +26,19 @@ class Gameboard {
 
     placeShips(shipName) {
         if (shipName === this.carrier) {
-            const arr1 = [11, 12, 13, 21, 22, 23, 31, 32, 33];
+            const arr1 = [2, 12, 22];
             const starting1 = arr1[Math.floor(Math.random() * arr1.length)];
             const carrierLocation = [starting1, starting1 + 1, starting1 + 2, starting1 + 3, starting1 + 4];
             carrierLocation.forEach(cell => this.board[cell].shipId = 'carrier');
             return carrierLocation;
         } else if (shipName === this.battleship) {
-            const arr2 = [8, 18, 28, 38, 48, 58, 68];
+            const arr2 = [8, 9, 18, 19, 28, 29, 38, 39, 48, 49, 58, 59, 68, 69];
             const starting2 = arr2[Math.floor(Math.random() * arr2.length)];
             const battleLocation = [starting2, starting2 + 10, starting2 + 20, starting2 + 30];
             battleLocation.forEach(cell => this.board[cell].shipId = 'battleship');
             return battleLocation;
         } else if (shipName === this.cruiser) {
-            const arr3 = [41, 42, 43, 44, 45, 51, 52, 53, 54, 55, 61, 62, 63, 64, 65];
+            const arr3 = [42, 43, 44, 52, 53, 54, 62, 63, 64];
             const starting3 = arr3[Math.floor(Math.random() * arr3.length)];
             const cruiserLocation = [starting3, starting3 + 1, starting3 + 2];
             cruiserLocation.forEach(cell => this.board[cell].shipId = 'cruiser');
@@ -50,7 +50,7 @@ class Gameboard {
             subLocation.forEach(cell => this.board[cell].shipId = 'submarine');
             return subLocation;
         } else if (shipName === this.destroyer) {
-            const arr5 = [71, 72, 73, 74, 75, 76, 81, 82, 83, 84, 85, 86, 91, 92, 93, 94, 95, 96];
+            const arr5 = [82, 83, 84, 85, 92, 93, 94, 95];
             const starting5 = arr5[Math.floor(Math.random() * arr5.length)];
             const destroyLocation = [starting5, starting5 + 1];
             destroyLocation.forEach(cell => this.board[cell].shipId = 'destroyer');
@@ -59,77 +59,86 @@ class Gameboard {
     }
 
     receiveAttack(index) {
-        this.board[index].isShot = true;
-
-        let status = {
-            isShot: null,
-            isShip: false,
-            isSunk: false, 
-            allSunk: false
-        };
-
-        status.isShot = index;
-
-        if (this.board[index].shipId === 'initial') {
+        let status = this.board[index];
+        status.isShot = true;
+        
+        if (status.shipId === 'none') {
             return status;
-
-        } else if (this.board[index].shipId === 'carrier') {
+        } else if (status.shipId === 'carrier') {
             this.carrier.isHit(index);
-            status.isShip = true;
-            if (this.carrier.isSunk()) {
-                this.sunk += 5;
-                status.isSunk = true;
+            if (!this.carrier.isSunk()) {
                 return status;
             } else {
-                return status;
+                this.sunk++;
+                status.isSunk = true;
+                if (!this.allSunk()) {
+                    return status;
+                } else {
+                    status.allSunk = true;
+                    return status;
+                }
             }
-
-        } else if (this.board[index].shipId === 'battleship') {
-            this.battleship.isHit(index);
-            status.isShip = true;
-            if (this.battleship.isSunk()) {
-                this.sunk += 4;
-                status.isSunk = true;
+        } else if (status.shipId === 'battleship') {
+            this.carrier.isHit(index);
+            if (!this.carrier.isSunk()) {
                 return status;
             } else {
-                return status;
+                this.sunk++;
+                status.isSunk = true;
+                if (!this.allSunk()) {
+                    return status;
+                } else {
+                    status.allSunk = true;
+                    return status;
+                }
             }
-
-        } else if (this.board[index].shipId === 'cruiser') {
-            this.cruiser.isHit(index);
-            status.isShip = true;
-            if (this.cruiser.isSunk()) {
-                this.sunk += 3;
-                status.isSunk = true;
+        } else if (status.shipId === 'cruiser') {
+            this.carrier.isHit(index);
+            if (!this.carrier.isSunk()) {
                 return status;
             } else {
-                return status;
+                this.sunk++;
+                status.isSunk = true;
+                if (!this.allSunk()) {
+                    return status;
+                } else {
+                    status.allSunk = true;
+                    return status;
+                }
             }
-        } else if (this.board[index].shipId === 'submarine') {
-            this.submarine.isHit(index);
-            status.isShip = true;
-            if (this.submarine.isSunk()) {
-                this.sunk += 3;
-                status.isSunk = true;
+        } else if (status.shipId === 'submarine') {
+            this.carrier.isHit(index);
+            if (!this.carrier.isSunk()) {
                 return status;
             } else {
-                return status;
+                this.sunk++;
+                status.isSunk = true;
+                if (!this.allSunk()) {
+                    return status;
+                } else {
+                    status.allSunk = true;
+                    return status;
+                }
             }
-        } else if (this.board[index].shipId === 'destroyer') {
-            this.destroyer.isHit(index);
-            status.isShip = true;
-            if (this.destroyer.isSunk()) {
-                this.sunk += 2;
-                status.isSunk = true;
+        } else if (status.shipId === 'destroyer') {
+            this.carrier.isHit(index);
+            if (!this.carrier.isSunk()) {
                 return status;
             } else {
-                return status;
+                this.sunk++;
+                status.isSunk = true;
+                if (!this.allSunk()) {
+                    return status;
+                } else {
+                    status.allSunk = true;
+                    return status;
+                }
             }
         }
     }
 
     allSunk() {
-        return this.sunk === 17;
+        return this.sunk === 5;
     }
 }
 
