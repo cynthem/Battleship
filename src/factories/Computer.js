@@ -12,7 +12,6 @@ class Computer {
 
     determinePlay(status) {
         if (status.allSunk) {
-            status.nextMove = 101
             return status;
         } 
 
