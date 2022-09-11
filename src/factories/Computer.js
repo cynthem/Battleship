@@ -12,7 +12,8 @@ class Computer {
 
     determinePlay(status) {
         const index = status.isShot;
-        
+        const availableIndex = this.availableShots.indexOf(index);
+        this.availableShots.splice(availableIndex, 1);
         let randomPlay = this.availableShots.indexOf(this.availableShots[Math.floor(Math.random() * this.availableShots.length)]);
 
         if (status.allSunk) {
@@ -21,51 +22,67 @@ class Computer {
         } 
 
         if (!status.isShip || status.isSunk) {
-            if (this.availableShots[randomPlay].isHit) {
-                this.determinePlay({ isShot: index, isShip: false, isSunk: false, allSunk: false });
-            } else {
-                return randomPlay;
-            }
+            return randomPlay;
         }
 
         if (status.isShip) {
-            this.availableShots[index].hasShip = true;
+            let choices = [];
+            const choiceOne = index - 1;
+            const choiceTwo = index + 1;
+            const choiceThree = index + 10;
+            const choiceFour = index - 10;
 
             if (index >= 10 && index <= 89) {
-                const choices = [index - 1, index + 1, index + 10, index - 10];
-                const nextMove = choices[Math.floor(Math.random() * choices.length)];
-                if (this.availableShots[nextMove].isHit) {
-                    this.determinePlay({ isShot: index, isShip: true, isSunk: false, allSunk: false });
-                } else {
-                    return nextMove;
+                if (this.availableShots.includes(choiceOne)) {
+                    choices.push(choiceOne);
                 }
+                if (this.availableShots.includes(choiceTwo)) {
+                    choices.push(choiceTwo);
+                }
+                if (this.availableShots.includes(choiceThree)) {
+                    choices.push(choiceThree);
+                }
+                if (this.availableShots.includes(choiceFour)) {
+                    choices.push(choiceFour);
+                }
+                const nextMove = choices[Math.floor(Math.random() * choices.length)];
+                return nextMove;
 
             } else if (index < 10 && index > 0) {
-                const choices = [index - 1, index + 1, index + 10];
-                const nextMove = choices[Math.floor(Math.random() * choices.length)];
-                if (this.availableShots[nextMove].isHit) {
-                    this.determinePlay({ isShot: index, isShip: true, isSunk: false, allSunk: false });
-                } else {
-                    return nextMove;
+                if (this.availableShots.includes(choiceOne)) {
+                    choices.push(choiceOne);
                 }
+                if (this.availableShots.includes(choiceTwo)) {
+                    choices.push(choiceTwo);
+                }
+                if (this.availableShots.includes(choiceThree)) {
+                    choices.push(choiceThree);
+                }
+                const nextMove = choices[Math.floor(Math.random() * choices.length)];
+                return nextMove;
 
             } else if (index > 89 && index < 99) {
-                const choices = [index - 1, index + 1, index - 10];
-                const nextMove = choices[Math.floor(Math.random() * choices.length)];
-                if (this.availableShots[nextMove].isHit) {
-                    this.determinePlay({ isShot: index, isShip: true, isSunk: false, allSunk: false });
-                } else {
-                    return nextMove;
+                if (this.availableShots.includes(choiceOne)) {
+                    choices.push(choiceOne);
                 }
+                if (this.availableShots.includes(choiceTwo)) {
+                    choices.push(choiceTwo);
+                }
+                if (this.availableShots.includes(choiceFour)) {
+                    choices.push(choiceFour);
+                }
+                const nextMove = choices[Math.floor(Math.random() * choices.length)];
+                return nextMove;
 
             } else if (index === 0) {
-                const choices = [1, 10];
-                const nextMove = choices[Math.floor(Math.random() * choices.length)];
-                if (this.availableShots[nextMove].isHit) {
-                    this.determinePlay({ isShot: index, isShip: true, isSunk: false, allSunk: false });
-                } else {
-                    return nextMove;
+                if (this.availableShots.includes(choiceTwo)) {
+                    choices.push(choiceTwo);
                 }
+                if (this.availableShots.includes(choiceThree)) {
+                    choices.push(choiceThree);
+                }
+                const nextMove = choices[Math.floor(Math.random() * choices.length)];
+                return nextMove;
             }
         }
     }

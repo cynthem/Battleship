@@ -206,7 +206,7 @@ const gameplay = (() => {
                 }, '5500');
 
             } else {
-                const sunkShip = userPlayer.gameboard.board[firstMove].shipId;
+                const sunkShip = userPlayer.gameboard.board[nextMove].shipId;
 
                 if (!turnResult.allSunk) {
                     window.setTimeout(() => {
