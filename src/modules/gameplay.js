@@ -41,13 +41,13 @@ const gameplay = (() => {
         turnResult = userPlayer.takeHit(nextMove);
 
         userPlayer.gameboard.board.forEach(cell => {
-            if (cell.shipId !== null) {
+            if (cell.shipId !== '') {
                 userShips.push(userPlayer.gameboard.board.indexOf(cell));
             }
         });
 
         computerPlayer.gameboard.board.forEach(cell => {
-            if (cell.shipId !== null) {
+            if (cell.shipId !== '') {
                 const shipInfo = {
                     shipName: cell.shipId,
                     shipIndex: computerPlayer.gameboard.board.indexOf(cell)

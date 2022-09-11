@@ -14,7 +14,7 @@ class Gameboard {
 
     init() {
         for (let i = 0; i < 100; i++) {
-            this.board.push({ shipId: null, isShot: false });
+            this.board.push({ shipId: '', isShot: false });
         }
 
         this.placeShips(this.carrier);
@@ -70,7 +70,7 @@ class Gameboard {
 
         status.isShot = index;
 
-        if (this.board[index].shipId === null) {
+        if (this.board[index].shipId === '') {
             return status;
 
         } else if (this.board[index].shipId === 'carrier') {
