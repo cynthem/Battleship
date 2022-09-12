@@ -80,9 +80,6 @@ class Computer {
                 if (this.availableCells.includes(choiceTwo)) {
                     choices.push(choiceTwo);
                 }
-                if (this.availableCells.includes(choiceThree)) {
-                    choices.push(choiceThree);
-                }
                 if (choices.length < 1) {
                     randomPlay = this.availableCells[Math.floor(Math.random() * this.availableCells.length)];
                 } else {
