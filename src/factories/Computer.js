@@ -61,10 +61,14 @@ class Computer {
 
             } else {
                 if (this.availableCells.includes(choiceOne)) {
-                    choices.push(choiceOne);
+                    if (choiceOne !== 1 && choiceOne !== 11 && choiceOne !== 21 && choiceOne !== 31 && choiceOne !== 41 && choiceOne !== 51 && choiceOne !== 61 && choiceOne !== 71 && choiceOne !== 81 && choiceOne !== 91) {
+                        choices.push(choiceOne);
+                    }
                 }
                 if (this.availableCells.includes(choiceTwo)) {
-                    choices.push(choiceTwo);
+                    if (choiceTwo !== 7 && choiceTwo !== 17 && choiceTwo !== 27 && choiceTwo !== 37 && choiceTwo !== 47 && choiceTwo !== 57 && choiceTwo !== 67 && choiceTwo !== 77 && choiceTwo !== 87 && choiceTwo !== 97) {
+                        choices.push(choiceTwo);
+                    }
                 }
                 if (choices.length < 1) {
                     randomPlay = this.availableCells[Math.floor(Math.random() * this.availableCells.length)];
