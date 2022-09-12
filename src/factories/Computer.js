@@ -59,20 +59,6 @@ class Computer {
                 }
                 return randomPlay;
 
-            } else if ((index >= 1 && index <= 8) || (index >= 91 && index <= 98)) {
-                if (this.availableCells.includes(choiceOne)) {
-                    choices.push(choiceOne);
-                }
-                if (this.availableCells.includes(choiceTwo)) {
-                    choices.push(choiceTwo);
-                }
-                if (choices.length < 1) {
-                    randomPlay = this.availableCells[Math.floor(Math.random() * this.availableCells.length)];
-                } else {
-                    randomPlay = choices[Math.floor(Math.random() * choices.length)];
-                }
-                return randomPlay;
-
             } else {
                 if (this.availableCells.includes(choiceOne)) {
                     choices.push(choiceOne);
