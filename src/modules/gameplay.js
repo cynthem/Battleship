@@ -9,7 +9,6 @@ const gameplay = (() => {
     let nextMove;
     let playerStatus;
     let computerStatus;
-    let playerName = '';
 
     const computerBoard = document.querySelectorAll('.right-board > button');
     const userBoard = document.querySelectorAll('.left-board > button');
@@ -24,14 +23,12 @@ const gameplay = (() => {
     const textHit = 'and it\'s a hit!';
     const textSunkPlayer = ' You\'ve sunk their';
     const textSunkComp = ' They\'ve sunk your';
-    const textWinTop = `Congratulations, ${playerName}.`;
+    const textWinTop = 'Congratulations,';
     const textWinBottom = 'You\'re the winner!';
     const textLoseTop = 'The enemy has won.';
     const textLoseBottom = 'Better luck next time.';
 
     function beginGame(userName, computerName) {
-        playerName = userName;
-
         userPlayer = new Player(userName);
         computerPlayer = new Player(computerName);
 
