@@ -11,10 +11,6 @@ class Computer {
     }
 
     determinePlay(status) {
-        /*if (status.allSunk) {
-            return status;
-        }*/
-
         const index = status.cellId;
         const match = this.availableCells.find(cell => cell === index);
         const matchIndex = this.availableCells.indexOf(match);
@@ -63,32 +59,12 @@ class Computer {
                 }
                 return randomPlay;
 
-            } else if (index >= 1 && index <= 8) {
+            } else if ((index >= 1 && index <= 8) || (index >= 91 && index <= 98)) {
                 if (this.availableCells.includes(choiceOne)) {
                     choices.push(choiceOne);
                 }
                 if (this.availableCells.includes(choiceTwo)) {
                     choices.push(choiceTwo);
-                }
-                if (this.availableCells.includes(choiceThree)) {
-                    choices.push(choiceThree);
-                }
-                if (choices.length < 1) {
-                    randomPlay = this.availableCells[Math.floor(Math.random() * this.availableCells.length)];
-                } else {
-                    randomPlay = choices[Math.floor(Math.random() * choices.length)];
-                }
-                return randomPlay;
-
-            } else if (index >= 91 && index <= 98) {
-                if (this.availableCells.includes(choiceOne)) {
-                    choices.push(choiceOne);
-                }
-                if (this.availableCells.includes(choiceTwo)) {
-                    choices.push(choiceTwo);
-                }
-                if (this.availableCells.includes(choiceFour)) {
-                    choices.push(choiceFour);
                 }
                 if (choices.length < 1) {
                     randomPlay = this.availableCells[Math.floor(Math.random() * this.availableCells.length)];
