@@ -1,7 +1,7 @@
 # Battleship
 > The classic game Battleship on a static page that uses classes to track ships, gameboards, and players. Ship placement and computer moves are randomized. Uses an algorithm to target nearby board tiles when the computer hits a ship. Bundled with Webpack. This project was completed as part of The Odin Project's Full Stack Javascript curriculum.
 
-Live demo [_here_](https://doozles411.github.io/Battleship/)
+Live demo [_here_](https://cynthem.github.io/Battleship/)
 
 ## Room for Improvement
 To do:
